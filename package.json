@@ -1,0 +1,22 @@
+{
+  "name": "red-string",
+  "version": "0.0.0",
+  "description": "A research and investigational app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephen-boynton/red-string.git"
+  },
+  "author": "Ryan, Nick, Stephen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stephen-boynton/red-string/issues"
+  },
+  "homepage": "https://github.com/stephen-boynton/red-string#readme",
+  "dependencies": {
+    "mongoose": "^4.11.11"
+  }
+}
