@@ -7,7 +7,7 @@ const emailRegEx = /\b[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,6}\b/gi;
 // const
 
 let regExArr = [stateRegEx1, stateRegEx2, emailRegEx, webRegEx, phoneRegEx]
-let inputStr = "";
+let inputStr = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789 _+-.,!@#$%^&*();\/|<> 12345 -98.7 3.141 .6180 9,000 +42 (413) 429-6507 555.123.4567 +1-(800)-555-2468 foo@demo.net	bar.ba@test.co.uk www.demo.com john@gmail.com	http://foo.co.uk/ http://regexr.com/foo.html?q=bar https://mediatemple.net";
 let tagArr = [];
 
 function returnRegExTags () {
