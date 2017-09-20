@@ -42,4 +42,4 @@ red-string was developed in September/October 2017 by Stephen Boynton, Nick Naue
 ### Contact us
   Stephen Boynton:
   Nick Nauert:
-  Ryan Kelley: [link](https://rtkelley.com)
+  Ryan Kelley: [link](www.rtkelley.com)
