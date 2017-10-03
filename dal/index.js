@@ -1,12 +1,34 @@
-const sqlite3 = require("sqlite3").verbose();
+const {
+	getMultipleFiles,
+	getFilesThatShareTag,
+	getTagById,
+	getFileById,
+	getCaseById,
+	getLastTagId,
+	getLastFileId,
+	getLastCaseId,
+	getAllTagsFromCase,
+	getAllTagsFromFile,
+	getAllFilesFromCase,
+	getAllCases
+} = require("./query");
 
-const db = new sqlite3.Database(
-	__dirname + "/db/test.db",
-	sqlite3.OPEN_READWRITE,
-	err => {
-		if (err) {
-			console.error(err.message);
-		}
-		console.log("Connected to the chinook database.");
-	}
-);
+const { createTags, createFile, createCase } = require("./store");
+
+module.exports = {
+	getMultipleFiles,
+	getFilesThatShareTag,
+	getTagById,
+	getFileById,
+	getCaseById,
+	getLastTagId,
+	getLastFileId,
+	getLastCaseId,
+	getAllTagsFromCase,
+	getAllTagsFromFile,
+	getAllFilesFromCase,
+	getAllCases,
+	createTags,
+	createFile,
+	createCase
+};
