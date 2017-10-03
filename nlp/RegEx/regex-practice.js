@@ -13,8 +13,7 @@ let inputStr = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789
 let tagArr = [];
 
 //function to return array of matches which will later serve as tags
-function returnRegExTags () {
-  input = inputStr;
+function returnRegExTags (input) {
   let matchArr = [];
   regExArr.forEach(function(item) {
     if (input.match(item)) {
@@ -25,6 +24,7 @@ function returnRegExTags () {
     matchArr = [];
   }
   });
-  console.log(tagArr);
   return tagArr;
 }
+
+module.exports = {returnRegExTags}
