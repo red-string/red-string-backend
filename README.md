@@ -40,6 +40,6 @@ The LOL (heh!) is run in Node.js, and uses a mix of regular expressions (RegEx) 
 red-string was developed in September/October 2017 by Stephen Boynton, Nick Nauert and Ryan Kelley as a final project at the Iron Yard, a 3-month full-stack programming course. 
 
 ### Contact us
-  Stephen Boynton:
+  Stephen Boynton: www.stephenboynton.com
   Nick Nauert:
-  Ryan Kelley: [link](https://rtkelley.com)
+  Ryan Kelley: www.rtkelley.com
