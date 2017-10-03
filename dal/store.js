@@ -1,9 +1,11 @@
-function createCase(caseStuff, caseId) {
+const sqlite3 = require("sqlite3").verbose();
+
+function createCase(caseObject) {
 	const now = moment().format("YYYY-MM-DD HH:mm:ss");
-	const caseinfo = `INSERT INTO Cases(case_id, case_name, case_description, date_modified)
-  VALUES (${caseId}, "${caseStuff.caseName}", "${caseStuff.caseDescription}", '${now}')`;
+	const caseSQL = `INSERT INTO Cases(case_name, case_description, date_modified)
+  VALUES ("${caseObject.caseName}", "${caseObject.caseDescription}", '${now}')`;
 	console.log(caseinfo);
-	db.run(caseinfo, function(err) {
+	db.run(caseSQL, function(err) {
 		if (err) {
 			return console.error(err.message);
 		}
@@ -11,13 +13,13 @@ function createCase(caseStuff, caseId) {
 	});
 }
 
-function createFile(fileStuff, fileId, caseId) {
+function createFile(fileObject, caseId) {
 	return new Promise((resolve, reject) => {
 		const now = moment().format("YYYY-MM-DD HH:mm:ss");
-		const fileInfo = `INSERT INTO Files(file_id, case_id, file_name, file_description, date_modified)
-    VALUES (${fileId}, ${caseId}, "${fileStuff.fileName}", "${fileStuff.fileDescription}", '${now}')`;
-		console.log(fileInfo);
-		db.run(fileInfo, function(err) {
+		const fileSQL = `INSERT INTO Files(case_id, file_name, file_description, date_modified)
+    VALUES (${caseId}, "${fileObject.fileName}", "${fileObject.fileDescription}", '${now}')`;
+		console.log(fileSQL);
+		db.run(fileSQL, function(err) {
 			if (err) {
 				return console.error(err.message);
 			}
@@ -27,15 +29,20 @@ function createFile(fileStuff, fileId, caseId) {
 	});
 }
 
-function createTags(tags, tagId, fileId, caseId) {
+function createTags(tagString, fileId, caseId) {
 	const now = moment().format("YYYY-MM-DD HH:mm:ss");
-	const tagArray = tags.split(", ");
+	const tagArray = tagString.split(", ");
 	db.serialize(() => {
 		tagArray.forEach(tag => {
-			const tagging = `INSERT INTO Tags(tag_id, file_id, case_id, tag, date_modified) VALUES (${tagId}, ${fileId}, ${caseId}, '${tag}', '${now}');`;
-			console.log(tagging);
-			db.run(tagging);
-			tagId += 1;
+			const tagSQL = `INSERT INTO Tags(file_id, case_id, tag, date_modified) VALUES (${fileId}, ${caseId}, '${tag}', '${now}');`;
+			console.log(tagSQL);
+			db.run(tagSQL);
 		});
 	});
 }
+
+module.exports = {
+	createTags,
+	createFile,
+	createCase
+};
