@@ -1,4 +1,4 @@
-# Name of app: redString
+# redString
 
 ## Type of app:
 
@@ -38,7 +38,7 @@ Users will be able to submit text documents or PDFs; the app will use NLP and Re
 * Different models of data visualization: timeline, map
 * OCR and image metadata tag generation
 
-##User stories
+## User stories
 
 ### Select whether to upload a new file or view a previous file
 #### Size
