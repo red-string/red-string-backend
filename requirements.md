@@ -8,7 +8,7 @@ Visual representation of relationships between user-submitted documents.
 
 Users will be able to submit text documents or PDFs; the app will use NLP and RegEx to generate a list of tags, and users will be able to add their own tags. After the user has completed reviewing and editing the list of tags, the app will produce a "stringmap" from that document, with links to other documents which have the same tag. This will allow users to see the various relationships between documents and tags.
 
-##Technologies:
+## Technologies:
 
 * React/Redux: front-end development
 * SQLite 3: data management
@@ -20,9 +20,9 @@ Users will be able to submit text documents or PDFs; the app will use NLP and Re
 * Document conversion modules: docxtemplater, PDF.js
 * JavaScript: data access layer functionality
 
-##Features
+## Features
 
-###MVP:
+### MVP:
 * Submit documents in word and raw text form
 * Extract text from word files
 * Natural language processing and returning tags from file text
@@ -31,7 +31,7 @@ Users will be able to submit text documents or PDFs; the app will use NLP and Re
 * Generating stringmap based on tags
 * Ability to click through stringmap to view relationships between documents and tags (2 layers)
 
-###Reaches:
+### Reaches:
 * Ability to select, reject and manually add to and edit list of generated tags
 * Electron wrapper
 * Ability for user to save "routes" through stringmap
