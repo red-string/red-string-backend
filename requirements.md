@@ -1,14 +1,14 @@
 # redString
 
-## Type of app:
+## Type of app
 
 Visual representation of relationships between user-submitted documents.
 
-## Description:
+## Description
 
 Users will be able to submit text documents or PDFs; the app will use NLP and RegEx to generate a list of tags. A "stringmap" will then be produced from that document and its tags, with links to other documents which have generated the same tags. This will allow users to see the various relationships between documents and tags.
 
-## Technologies:
+## Technologies
 
 * React/Redux: front-end development
 * SQLite 3: data management
@@ -22,7 +22,7 @@ Users will be able to submit text documents or PDFs; the app will use NLP and Re
 
 ## Features
 
-### MVP:
+### MVP
 * Submit documents in word and raw text form
 * Extract text from word files
 * Automatically generate tags from text using natural language processing and regular expressions
@@ -31,7 +31,7 @@ Users will be able to submit text documents or PDFs; the app will use NLP and Re
 * Generate stringmaps based on tags
 * Ability to click through stringmap to view relationships between documents and tags (2 layers)
 
-### Reaches:
+### Reaches
 * Select, reject and manually add to and edit list of generated tags
 * Save "routes" through stringmap for future reference
 * View different models of data visualization: timeline, map
