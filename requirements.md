@@ -6,7 +6,7 @@ Visual representation of relationships between user-submitted documents.
 
 ## Description:
 
-Users will be able to submit text documents or PDFs; the app will use NLP and RegEx to generate a list of tags, and users will be able to add their own tags. After the user has completed reviewing and editing the list of tags, the app will produce a "stringmap" from that document, with links to other documents which have the same tag. This will allow users to see the various relationships between documents and tags.
+Users will be able to submit text documents or PDFs; the app will use NLP and RegEx to generate a list of tags. A "stringmap" will then be produced from that document and its tags, with links to other documents which have generated the same tags. This will allow users to see the various relationships between documents and tags.
 
 ## Technologies:
 
