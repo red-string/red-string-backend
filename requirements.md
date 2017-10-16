@@ -25,18 +25,19 @@ Users will be able to submit text documents or PDFs; the app will use NLP and Re
 ### MVP:
 * Submit documents in word and raw text form
 * Extract text from word files
-* Natural language processing and returning tags from file text
+* Automatically generate tags from text using natural language processing and regular expressions
 * Save tags/data to database
 * Retrieve tags and data from database
-* Generating stringmap based on tags
+* Generate stringmaps based on tags
 * Ability to click through stringmap to view relationships between documents and tags (2 layers)
 
 ### Reaches:
-* Ability to select, reject and manually add to and edit list of generated tags
-* Electron wrapper
-* Ability for user to save "routes" through stringmap
-* Different models of data visualization: timeline, map
-* OCR and image metadata tag generation
+* Select, reject and manually add to and edit list of generated tags
+* Save "routes" through stringmap for future reference
+* View different models of data visualization: timeline, map
+* Generate tags from OCR and image metadata
+* Present the app in Electron
+* Host the app and database on a Raspberry Pi for portabile demonstration
 
 ## User stories
 
