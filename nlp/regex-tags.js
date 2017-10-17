@@ -3,6 +3,8 @@ const JSZip = require("jszip");
 const Docxtemplater = require("docxtemplater");
 const fs = require("fs");
 const path = require("path");
+
+//will need to create a function to link this input with file upload input from react app
 let content = fs.readFileSync(__dirname + "/eu_merger_whitepaper.docx", "binary");
 const _ = require('lodash')
 
