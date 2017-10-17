@@ -29,7 +29,7 @@ A research and investigational app that uses visual data to describe relationshi
 
 The LOL (heh!) is run in Node.js, and uses a mix of regular expressions (RegEx) and a natural language processing API called Parallel Dots to return a series of suggested tags from submitted documents.
 
-  ###SQL
+  ### SQL
   For the creation of Cases, Files, Tags and Routes, the data structure required by the Data Access Layer is as follows:
 
   ``` javascript
@@ -65,7 +65,7 @@ The LOL (heh!) is run in Node.js, and uses a mix of regular expressions (RegEx) 
       route_description: "This is the route description"
     }
 
-    ```
+  ```
 
 
   ###React and D3
