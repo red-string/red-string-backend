@@ -41,5 +41,5 @@ red-string was developed in September/October 2017 by Stephen Boynton, Nick Naue
 
 ### Contact us
   Stephen Boynton: www.stephenboynton.com
-  Nick Nauert:
+  Nick Nauert: nicknauert.github.io/PortTwoFolio/
   Ryan Kelley: www.rtkelley.com
