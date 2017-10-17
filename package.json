@@ -17,7 +17,11 @@
   },
   "homepage": "https://github.com/stephen-boynton/red-string#readme",
   "dependencies": {
+<<<<<<< HEAD
     "bluebird": "^3.5.1",
+=======
+    "check-word": "^1.1.0",
+>>>>>>> 3e1eaf1537e5bb4ef82f6a2927f5929f092f2751
     "docxtemplater": "^3.1.7",
     "fs": "0.0.1-security",
     "jszip": "^2.6.1",

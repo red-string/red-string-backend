@@ -27,7 +27,7 @@ A research and investigational app that uses visual data to describe relationshi
 
 ### LOL (Language-obtaining layer)
 
-The LOL (heh!) is run in Node.js, and uses a mix of regular expressions (RegEx) and a natural language processing Node module called Natural to return a series of suggested tags from submitted documents.
+The LOL (heh!) is run in Node.js, and uses a mix of regular expressions (RegEx) and a natural language processing API called Parallel Dots to return a series of suggested tags from submitted documents.
 
   ###SQL
   For the creation of Cases, Files, Tags and Routes, the data structure required by the Data Access Layer is as follows:
@@ -75,9 +75,9 @@ The LOL (heh!) is run in Node.js, and uses a mix of regular expressions (RegEx) 
 
 ### About us
 
-red-string was developed in September/October 2017 by Stephen Boynton, Nick Nauert and Ryan Kelley as a final project at the Iron Yard, a 3-month full-stack programming course. 
+red-string was developed in September/October 2017 by Stephen Boynton, Nick Nauert and Ryan Kelley as a final project at the Iron Yard, a 3-month full-stack programming course.
 
 ### Contact us
   Stephen Boynton: www.stephenboynton.com
-  Nick Nauert:
+  Nick Nauert: https://nicknauert.github.io/PortTwoFolio/
   Ryan Kelley: www.rtkelley.com
