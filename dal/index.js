@@ -13,7 +13,7 @@ const {
   getAllCases
 } = require("./query");
 
-const { createTags, createFile, createCase } = require("./store");
+const { createTags, createFile, createCase, createRoute } = require("./store");
 
 module.exports = {
   getMultipleFiles,
@@ -31,5 +31,5 @@ module.exports = {
   createTags,
   createFile,
   createCase,
-  create
+  createRoute
 };
