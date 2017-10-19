@@ -19,7 +19,7 @@ const {
   createFile,
   createCase
 } = require("./dal");
-const { test } = require("./nlp/file_handler");
+const { LOL } = require("./nlp/file_handler");
 const storage = multer.diskStorage({
   destination: "./dal/temp",
   filename: function(req, file, cb) {
@@ -39,7 +39,7 @@ app.post("/case/files/new", upload.single("file"), (req, res) => {
   const document = req.file;
   const fileLocation = __dirname + "/" + document.path;
   console.log("This is a document? ", document);
-  test(document, fileLocation);
+  LOL(document, fileLocation);
   if (document) res.send(true);
   if (!document) res.send(false);
 });

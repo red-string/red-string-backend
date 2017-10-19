@@ -21,4 +21,9 @@ function getDocXText(fileObject, fileLocation) {
   return text;
 }
 
-module.exports = { getDocXText };
+function LOL(fileObject, fileLocation) {
+  const text = getDocXText(fileObject, fileLocation);
+  console.log(text);
+}
+
+module.exports = { LOL };
