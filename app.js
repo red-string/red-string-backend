@@ -39,6 +39,13 @@ app.use(bodyParser.json());
 // Gets
 //============
 
+app.get("/case", (req, res) => {
+  console.log(req.params);
+  let cases = getAllCases();
+  if (cases) res.send(cases);
+  if (!cases) res.send(false);
+});
+
 app.get("/case/:id", (req, res) => {
   console.log(req.params);
   if (req.params) res.send(true);
