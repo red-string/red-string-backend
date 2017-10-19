@@ -1,16 +1,3 @@
-//general node and document processing modules
-const JSZip = require("jszip");
-const Docxtemplater = require("docxtemplater");
-const fs = require("fs");
-const path = require("path");
-let content = fs.readFileSync(__dirname + "/eu_merger_whitepaper.docx", "binary");
-const _ = require('lodash')
-
-//preparing document text for language processing
-const zip = new JSZip(content);
-let doc = new Docxtemplater().loadZip(zip);
-const text = doc.getFullText();
-
 //regular expressions for filtering out US phone numbers, web addresses and email addresses, US state abbreviations
 const phoneRegEx = /(\(?\d{3}\)?|\d{3})?( |-|\.)?(\d{3}( |-|\.)?\d{4})/g;
 const webRegEx = /([(www.)?a-zA-Z0-9@:%._\+~#=]{2,256})\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
@@ -21,10 +8,10 @@ const emailRegEx = /\b[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,6}\b/g;
 // const
 
 //array of regular expressions to iterate over in matching function
-const regExArr = [stateRegEx1, stateRegEx2, emailRegEx, webRegEx, phoneRegEx]
+const regExArr = [stateRegEx1, stateRegEx2, emailRegEx, webRegEx, phoneRegEx];
 
 //function to return array of matches which will later serve as tags
-function returnRegExTags (input) {
+function returnRegExTags(input) {
   let matchArr = [];
   let tagArr = [];
   regExArr.forEach(function(item) {
@@ -32,29 +19,28 @@ function returnRegExTags (input) {
       matchArr = input.match(item);
       matchArr.forEach(function(item) {
         tagArr.push(item);
-    })
-    matchArr = [];
-  }
+      });
+      matchArr = [];
+    }
   });
   return tagArr;
 }
 
 //function to create tag objects out of returned tags
-function returnTagObjs (input) {
-  let tagObjArr = []
+function returnTagObjs(input) {
+  let tagObjArr = [];
   let tagArr = returnRegExTags(input);
 
   for (i in tagArr) {
-    let tag = tagArr[i]
+    let tag = tagArr[i];
     let newTagObj = {
-      "tag": tag,
-      "case_id": "",
-      "file_id": ""
-    }
-    tagObjArr.push(newTagObj)
+      tag: tag,
+      case_id: "",
+      file_id: ""
+    };
+    tagObjArr.push(newTagObj);
   }
-  return tagObjArr
+  return tagObjArr;
 }
 
-
-module.exports = {returnRegExTags, returnTagObjs}
+module.exports = { returnRegExTags, returnTagObjs };
