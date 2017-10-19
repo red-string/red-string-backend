@@ -39,13 +39,22 @@ app.use(bodyParser.json());
 // Gets
 //============
 
+//by case id
 app.get("/case/:id", (req, res) => {
   console.log(req.params);
   if (req.params) res.send(true);
   if (!req.params) res.send(false);
 });
 
+//by file id
 app.get("/case/files/:id", (req, res) => {
+  console.log(req.params);
+  if (req.params) res.send(true);
+  if (!req.params) res.send(false);
+});
+
+//by tag id
+app.get("/case/files/tags/:id", (req, res) => {
   console.log(req.params);
   if (req.params) res.send(true);
   if (!req.params) res.send(false);
