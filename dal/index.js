@@ -30,6 +30,5 @@ module.exports = {
   getAllCases,
   createTags,
   createFile,
-  createCase,
-  create
+  createCase
 };

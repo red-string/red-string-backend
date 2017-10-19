@@ -40,10 +40,10 @@ app.post("/case/file/new", (req, res) => {
 // Server set up
 //============================================
 
-app.set("port", process.env.PORT || 4000);
+app.set("port", 4000);
 
 app.listen(app.get("port"), () => {
-  console.log("Your app has started, sir.", process.env.Port);
+  console.log("Your app has started, sir.", process.env.PORT);
 });
 
 module.exports = app;
