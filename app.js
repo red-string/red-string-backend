@@ -39,13 +39,23 @@ app.use(bodyParser.json());
 // Gets
 //============
 
+//by case id
 app.get("/case/:id", (req, res) => {
   console.log(req.params);
   if (req.params) res.send(true);
   if (!req.params) res.send(false);
 });
 
-app.get("/case/files/:id", (req, res) => {
+//by file id
+app.get("/case/:case/:id", (req, res) => {
+  console.log(req.params);
+  const caseId = req.params.case;
+  if (req.params) res.send(true);
+  if (!req.params) res.send(false);
+});
+
+//by tag id
+app.get("/case/files/tags/:id", (req, res) => {
   console.log(req.params);
   if (req.params) res.send(true);
   if (!req.params) res.send(false);
@@ -62,9 +72,7 @@ app.post("/case/new", (req, res) => {
   if (!newCase) res.send(false);
 });
 
-app.post("/case/files/new", upload.single("file"), (req, res) => {
-  console.log('lkjlkjglrjg', req.body)
-  console.log('good god please be a file', req.file)
+app.post("/case/:case/new", upload.single("file"), (req, res) => {
   const document = req.file;
   const fileLocation = __dirname + "/" + document.path;
   console.log("This is a document? ", document);

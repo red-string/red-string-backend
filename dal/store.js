@@ -1,11 +1,15 @@
 const { Case, File, Tag, Route } = require("./Models");
 const { getLastCaseId, getLastFileId, getLastTagId } = require("./query");
 
-function createCase(caseObject) {
-  const lastId = getLastCaseId();
+async function createCase(caseObject) {
+  const lastId = await getLastCaseId();
   let d3;
-  if (lastId) d3 = "c" + (lastId + 1);
-  if (!lastId) d3 = "c1";
+  console.log(lastId == true);
+  if (lastId) {
+    d3 = "c" + (lastId[0].case_id + 1);
+  } else {
+    d3 = "c1";
+  }
   return Case.query()
     .insert({
       case_name: caseObject.case_name,
@@ -14,7 +18,7 @@ function createCase(caseObject) {
     })
     .then(response => {
       console.log(response);
-      resolve(response);
+      return response;
     });
 }
 
