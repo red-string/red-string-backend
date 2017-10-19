@@ -19,8 +19,15 @@ const {
   createFile,
   createCase
 } = require("./dal");
+const { test } = require("./nlp/file_handler");
+const storage = multer.diskStorage({
+  destination: "./dal/temp",
+  filename: function(req, file, cb) {
+    cb(null, file.fieldname + "-" + Date.now());
+  }
+});
 
-const upload = multer({ dest: "./dal/temp" });
+const upload = multer({ storage });
 
 app.use(bodyParser.json());
 
@@ -30,7 +37,9 @@ app.use(bodyParser.json());
 
 app.post("/case/files/new", upload.single("file"), (req, res) => {
   const document = req.file;
+  const fileLocation = __dirname + "/" + document.path;
   console.log("This is a document? ", document);
+  test(document, fileLocation);
   if (document) res.send(true);
   if (!document) res.send(false);
 });
