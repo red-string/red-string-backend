@@ -42,15 +42,18 @@ function getAllTagsFromCase(caseId) {
 //===================================== Get Last CaseId, FileId, TagId
 
 function getLastCaseId() {
-  return new Promise((resolve, reject) => {
-    Case.query()
-      .select("case_id")
-      .orderBy("case_id", "desc")
-      .limit(1)
-      .then(resposne => {
-        resolve(respone);
-      });
-  });
+  return Case.query()
+    .select("case_id")
+    .orderBy("case_id", "desc")
+    .limit(1)
+    .then(response => {
+      console.log(response == true);
+      if (response) {
+        return response;
+      } else {
+        return false;
+      }
+    });
 }
 
 function getLastFileId() {
@@ -60,7 +63,7 @@ function getLastFileId() {
       .orderBy("case_id", "desc")
       .limit(1)
       .then(resposne => {
-        resolve(respone);
+        resolve(response);
       });
   });
 }
@@ -72,7 +75,7 @@ function getLastTagId() {
       .orderBy("case_id", "desc")
       .limit(1)
       .then(resposne => {
-        resolve(respone);
+        resolve(response);
       });
   });
 }
