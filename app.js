@@ -19,15 +19,8 @@ const {
   createFile,
   createCase
 } = require("./dal");
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, "/dal/temp");
-  },
-  filename: function(req, file, cb) {
-    cb(null, file.fieldname + "-" + Date.now());
-  }
-});
-const upload = multer({ storage: storage, fileFilter: "docx" });
+
+const upload = multer({ dest: "./dal/temp" });
 
 app.use(bodyParser.json());
 
@@ -35,9 +28,9 @@ app.use(bodyParser.json());
 // Routes
 //============================================
 
-app.post("/case/files/new", upload.single(), (req, res) => {
+app.post("/case/files/new", upload.single("file"), (req, res) => {
   const document = req.file;
-  console.log('hello', document);
+  console.log("This is a document? ", document);
   if (document) res.send(true);
   if (!document) res.send(false);
 });
