@@ -34,6 +34,11 @@ app.use(bodyParser.json());
 // ============================================
 // Routes
 //============================================
+
+// ===========
+// Gets
+//============
+
 app.get("/case/:id", (req, res) => {
   console.log(req.params);
   if (req.params) res.send(true);
@@ -44,6 +49,17 @@ app.get("/case/files/:id", (req, res) => {
   console.log(req.params);
   if (req.params) res.send(true);
   if (!req.params) res.send(false);
+});
+
+// ===========
+// Posts
+//============
+
+app.post("/case/new", (req, res) => {
+  console.log(req.body);
+  const newCase = createCase(req.body);
+  if (newCase) res.send(true);
+  if (!newCase) res.send(false);
 });
 
 app.post("/case/files/new", upload.single("file"), (req, res) => {

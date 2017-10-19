@@ -2,20 +2,20 @@ const { Case, File, Tag, Route } = require("./Models");
 const { getLastCaseId, getLastFileId, getLastTagId } = require("./query");
 
 function createCase(caseObject) {
-  return new Promise((resolve, reject) => {
-    const lastId = getLastCaseId();
-    const d3 = "c" + (lastId + 1);
-    Case.query()
-      .insert({
-        case_name: caseObject.case_name,
-        case_description: caseObject.case_description,
-        case_d3: d3
-      })
-      .then(response => {
-        console.log(response);
-        resolve(response);
-      });
-  });
+  const lastId = getLastCaseId();
+  let d3;
+  if (lastId) d3 = "c" + (lastId + 1);
+  if (!lastId) d3 = "c1";
+  return Case.query()
+    .insert({
+      case_name: caseObject.case_name,
+      case_description: caseObject.case_description,
+      case_d3: d3
+    })
+    .then(response => {
+      console.log(response);
+      resolve(response);
+    });
 }
 
 function createFile(fileObject) {
