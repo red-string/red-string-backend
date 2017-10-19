@@ -39,9 +39,8 @@ app.use(bodyParser.json());
 // Gets
 //============
 
-app.get("/case", (req, res) => {
-  console.log(req.params);
-  let cases = getAllCases();
+app.get("/case", async (req, res) => {
+  let cases = await getAllCases();
   if (cases) res.send(cases);
   if (!cases) res.send(false);
 });
