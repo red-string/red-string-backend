@@ -63,13 +63,14 @@ app.post("/case/new", (req, res) => {
 });
 
 app.post("/case/files/new", upload.single("file"), (req, res) => {
-  console.log('lkjlkjglrjg', req)
-  // const document = req.file;
-  // const fileLocation = __dirname + "/" + document.path;
-  // console.log("This is a document? ", document);
-  // LOL(document, fileLocation);
-  // if (document) res.send(true);
-  // if (!document) res.send(false);
+  console.log('lkjlkjglrjg', req.body)
+  console.log('good god please be a file', req.file)
+  const document = req.file;
+  const fileLocation = __dirname + "/" + document.path;
+  console.log("This is a document? ", document);
+  LOL(document, fileLocation);
+  if (document) res.send(true);
+  if (!document) res.send(false);
 });
 
 // ============================================

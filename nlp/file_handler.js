@@ -18,7 +18,7 @@ function getDocXText(fileObject, fileLocation) {
 
 function LOL(fileObject, fileLocation) {
   const text = getDocXText(fileObject, fileLocation);
-  console.log(text);
+  console.log(returnTagObjs(text));
 }
 
 module.exports = { LOL };
