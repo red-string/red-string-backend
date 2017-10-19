@@ -22,18 +22,15 @@ const {
 
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
-  const err = new Error("Not Found");
-  err.status = 404;
-  next(err);
-});
 // ============================================
 // Routes
 //============================================
 
-app.post("/case/file/new", (req, res) => {
-  if (success) res.send(true);
-  if (err) res.send(false);
+app.post("/case/files/new", (req, res) => {
+  const document = req.body;
+  console.log(document);
+  if (document) res.send(true);
+  if (!document) res.send(false);
 });
 
 // ============================================
