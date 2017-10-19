@@ -47,12 +47,13 @@ app.get("/case/files/:id", (req, res) => {
 });
 
 app.post("/case/files/new", upload.single("file"), (req, res) => {
-  const document = req.file;
-  const fileLocation = __dirname + "/" + document.path;
-  console.log("This is a document? ", document);
-  LOL(document, fileLocation);
-  if (document) res.send(true);
-  if (!document) res.send(false);
+  console.log('lkjlkjglrjg', req)
+  // const document = req.file;
+  // const fileLocation = __dirname + "/" + document.path;
+  // console.log("This is a document? ", document);
+  // LOL(document, fileLocation);
+  // if (document) res.send(true);
+  // if (!document) res.send(false);
 });
 
 // ============================================
