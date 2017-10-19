@@ -40,6 +40,12 @@ app.get("/case/:id", (req, res) => {
   if (!req.params) res.send(false);
 });
 
+app.get("/case/files/:id", (req, res) => {
+  console.log(req.params);
+  if (req.params) res.send(true);
+  if (!req.params) res.send(false);
+});
+
 app.post("/case/files/new", upload.single("file"), (req, res) => {
   const document = req.file;
   const fileLocation = __dirname + "/" + document.path;
