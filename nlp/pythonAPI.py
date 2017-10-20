@@ -7,7 +7,7 @@ def main():
     thing = get_api_key()
     print("keeeeyyyyy", thing)
     text = sys.stdin.read()
-
+ 
     print text
     # text = ner(doc)
     print("this is not where the problem is")
