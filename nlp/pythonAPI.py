@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from paralleldots import ner, taxonomy, keywords, get_api_key, set_api_key
-
+from config import api
 import sys, json, numpy as np
 
 def main():
-    set_api_key("WWcXeycKh8syxYDFfbw4RJ22abD7U7Rek2POQqsOQ4k")
+    key = api()
+    set_api_key(key)
     thing = get_api_key()
     text = sys.stdin.read()
     nerText = ner(text)
