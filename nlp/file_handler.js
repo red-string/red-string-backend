@@ -3,7 +3,8 @@ const Docxtemplater = require("docxtemplater");
 const fs = require("fs");
 const path = require("path");
 const { returnRegExTags, returnTagObjs } = require("./regex");
-const { pyNLP } = require("./pypractice")
+const { pyNLP, endPynlp } = require("./pypractice");
+const { maxSizeFileHandler, nlptk } = require("./helper");
 
 const _ = require("lodash");
 
@@ -24,13 +25,9 @@ function getDocXText(fileObject, fileLocation) {
 
 //function to get tags from uploaded text file
 function LOL(fileObject, fileLocation) {
-  let text = getDocXText(fileObject, fileLocation);
+  const text = getDocXText(fileObject, fileLocation);
   console.log(returnTagObjs(text));
-  // console.log(pyNLP(text))
-  console.log("text is: ", typeof text);
-  text = text.toString()
-  pyNLP(text)
-
+  nlptk(text);
 }
 
 module.exports = { LOL };

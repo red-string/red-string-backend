@@ -79,6 +79,7 @@ app.post("/case/new", (req, res) => {
 
 app.post("/case/:case/new", upload.single("file"), (req, res) => {
   const document = req.file;
+  console.log(document);
   const fileLocation = __dirname + "/" + document.path;
   console.log("This is a document? ", document);
   LOL(document, fileLocation);
