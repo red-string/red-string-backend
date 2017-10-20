@@ -3,14 +3,15 @@ const JSZip = require("jszip");
 const Docxtemplater = require("docxtemplater");
 const fs = require("fs");
 const path = require("path");
-const _ = require('lodash')
+const _ = require('lodash');
+
 
 //Python processing modules for NLP API call
 const PythonShell = require('python-shell');
 const options = {
   mode: "text",
-  scriptPath: "/Users/rtkelley/Documents/Coding/FEE-practice/TIY/red-string/nlp/",
-  args: ['hello']
+  scriptPath: __dirname,
+  // args: ['hello']
  }
 const pyshell = new PythonShell('pythonAPI.py', options);
 

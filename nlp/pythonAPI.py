@@ -19,7 +19,7 @@ def main():
         tags.append(item['name'])
 
 
-    #return the sum to the output stream
+    #return the tags to the output stream
     print(tags)
 
 #start process
