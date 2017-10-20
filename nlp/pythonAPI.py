@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from paralleldots import ner, taxonomy, keywords, get_api_key, set_api_key
 from config import api
