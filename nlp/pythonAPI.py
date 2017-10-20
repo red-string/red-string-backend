@@ -8,21 +8,23 @@ def main():
     set_api_key(key)
     thing = get_api_key()
     text = sys.stdin.read()
+    text = text.rstrip()
+
     nerText = ner(text)
     print nerText
-    # taxText = taxonomy(text)
-    # keyText = keywords(text)
-    # # print(taxText)
-    # # print(keyText)
-    # entities = nerText['entities']
-    # tags = []
-    #
-    # for item in entities:
-    #     tags.append(item['name'])
-    #
-    #
-    # #return the tags to the output stream
-    # print(tags)
+    taxText = taxonomy(text)
+    keyText = keywords(text)
+    # print(taxText)
+    # print(keyText)
+    entities = nerText['entities']
+    tags = []
+
+    for item in entities:
+        tags.append(item['name'])
+
+
+    #return the tags to the output stream
+    print(tags)
 
 #start process
 if __name__ == '__main__':
