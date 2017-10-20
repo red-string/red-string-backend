@@ -1,28 +1,27 @@
 # -*- coding: utf-8 -*-
-from paralleldots import ner, taxonomy, keywords, get_api_key
-
+from paralleldots import ner, taxonomy, keywords, get_api_key, set_api_key
+from config import api
 import sys, json, numpy as np
 
 def main():
+    key = api()
+    set_api_key(key)
     thing = get_api_key()
-    print("keeeeyyyyy", thing)
     text = sys.stdin.read()
- 
-    print text
-    # text = ner(doc)
-    print("this is not where the problem is")
-    # print(text)
-    # entities = text['entities']
-    # print("entities, also not a problem", entities)
-    # tags = []
-    #
-    # for item in entities:
-    #     print("printing names = not a problem", item['name'])
-    #     tags.append(item['name'])
-    #
-    #
-    # #return the sum to the output stream
-    # print(tags)
+    nerText = ner(text)
+    # taxText = taxonomy(text)
+    # keyText = keywords(text)
+    # print(taxText)
+    # print(keyText)
+    entities = nerText['entities']
+    tags = []
+
+    for item in entities:
+        tags.append(item['name'])
+
+
+    #return the tags to the output stream
+    print(tags)
 
 #start process
 if __name__ == '__main__':
