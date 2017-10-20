@@ -3,18 +3,16 @@ const JSZip = require("jszip");
 const Docxtemplater = require("docxtemplater");
 const fs = require("fs");
 const path = require("path");
-const _ = require('lodash');
-
+const _ = require("lodash");
 
 //Python processing modules for NLP API call
-const PythonShell = require('python-shell');
+const PythonShell = require("python-shell");
 const options = {
   mode: "text",
-  scriptPath: __dirname,
+  scriptPath: __dirname
   // args: ['hello']
- }
-const pyshell = new PythonShell('pythonAPI.py', options);
-
+};
+const pyshell = new PythonShell("pythonAPI.py", options);
 
 // PythonShell.run('pythonAPI.py', options, function (err, results) {
 //   if (err) throw err;
@@ -24,20 +22,23 @@ const pyshell = new PythonShell('pythonAPI.py', options);
 
 //
 function pyNLP(text) {
+  return new Promise((resolve, reject) => {
+    pyshell.send(text);
 
-  pyshell.send(text)
-
-  pyshell.on('message', function(message) {
-    console.log(message)
-  })
-
-  pyshell.end(function (err) {
-    if (err) {
-      throw err
-    };
-    console.log('finished');
+    pyshell.on("message", function(message) {
+      console.log(message);
+      resolve(message);
+    });
   });
-
 }
 
-module.exports = { pyNLP };
+function endPynlp() {
+  pyshell.end(function(err) {
+    if (err) {
+      throw err;
+    }
+    console.log("finished");
+  });
+}
+
+module.exports = { pyNLP, endPynlp };
