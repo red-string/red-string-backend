@@ -39,7 +39,12 @@ app.use(bodyParser.json());
 // Gets
 //============
 
-//by case id
+app.get("/case", async (req, res) => {
+  let cases = await getAllCases();
+  if (cases) res.send(cases);
+  if (!cases) res.send(false);
+});
+
 app.get("/case/:id", (req, res) => {
   console.log(req.params);
   if (req.params) res.send(true);
