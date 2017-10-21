@@ -3,6 +3,10 @@ import re
 import time
 import sys
 import json
+import collections
+ 
+ner_tags = collections.Counter()
+corpus_root = "/gmb"
 
 def hello():
     lines = sys.stdin.readlines()
