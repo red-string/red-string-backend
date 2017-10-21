@@ -1,3 +1,2 @@
 node_modules/
-/nlp/gmb
-.DS_Store
+nlp/gmb/
