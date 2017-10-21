@@ -1,4 +1,4 @@
-import nltk
+from nltk import word_tokenize, pos_tag, ne_chunk
 import re
 import time
 import sys
@@ -6,8 +6,10 @@ import json
 
 def hello():
     lines = sys.stdin.readlines()
-    print(lines)
-    return json.loads(lines[0])
+    tokens = word_tokenize(lines[0])
+    words_tagged = pos_tag(tokens)
+    chunks = ne_chunk(words_tagged)
+    print(chunks)
 
  
  
