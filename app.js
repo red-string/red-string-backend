@@ -45,9 +45,9 @@ app.get("/case", async (req, res) => {
   if (!cases) res.send(false);
 });
 
-app.get("/case/:id", (req, res) => {
-  console.log(req.params);
-  if (req.params) res.send(true);
+app.get("/case/:id", async (req, res) => {
+  let files = await getAllFilesFromCase(req.params.id)
+  if (req.params) res.send(files);
   if (!req.params) res.send(false);
 });
 
