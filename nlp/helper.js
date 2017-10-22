@@ -1,4 +1,4 @@
-let textString = "";
+let textString = [];
 
 function maxSizeFileHandler(textFile) {
   const length = textFile.length;
@@ -14,7 +14,7 @@ function nlptk(text) {
   const spawn = require("child_process").spawn;
   const py = spawn("python3", [__dirname + "/nlptk.py"]);
   py.stdout.on("data", function(text) {
-    textString = text.toString();
+    textString.push(text.toString());
   });
   py.stdout.on("end", function() {
     console.log("Data", textString);
