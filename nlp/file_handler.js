@@ -3,7 +3,7 @@ const Docxtemplater = require("docxtemplater");
 const fs = require("fs");
 const path = require("path");
 const { returnRegExTags, returnTagObjs } = require("./regex");
-const { pyNLP, endPynlp } = require("./pypractice");
+// const { pyNLP, endPynlp } = require("./pypractice");
 const { maxSizeFileHandler, nlptk } = require("./helper");
 
 const _ = require("lodash");
