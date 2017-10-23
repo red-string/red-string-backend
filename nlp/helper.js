@@ -3,7 +3,6 @@ const _ = require('lodash')
 let textArr = [];
 let splitText = [];
 let taggedArr = [];
-let thing;
 
 function maxSizeFileHandler(textFile) {
   const length = textFile.length;
@@ -23,7 +22,8 @@ function nlptk(text) {
     textArr = textArr[0];
     splitText = _.split([textArr], "\n");
     splitText = _.map(splitText, _.trim);
-    taggedArr = _.filter(splitText, /\(.*\)/g)
+    taggedArr = _.filter(splitText, /'\(.*\)'/g)
+    console.log(filteredArr)
 
 
     // textString += text.toString();
