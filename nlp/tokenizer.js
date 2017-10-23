@@ -3,7 +3,7 @@ const {returnTagObjs} = require('./regex')
 
 let cleanedStr = ""
 let filteredArr = []
-const tagEndFilter = /\/NN.?\)?/gi;
+const tagEndFilter = /\/\w{2,3}\)?/gi;
 const tagBeginFilter = /\(\w*/gi;
 
 function cleanTagArr (arr) {
@@ -22,38 +22,10 @@ function getUniqueTags (arr) {
   return returnTagObjs(uniqueTagsArr);
 }
 
-// function
 
-// console.log("woo!", cleanTagArr(testArr))
 
 module.exports = {getUniqueTags}
-//
-// //creating raw array of all POS-tagged words from a document.
-// let taggedArr = [];
-//
-// for (i in taggedWords) {
-//     let taggedWord = taggedWords[i];
-//     let word = taggedWord[0];
-//     let tag = taggedWord[1];
-//     let wordObj = {"word": word, "tag": tag};
-//     taggedArr.push(wordObj);
-// }
-//
-// //creating array of proper nouns from raw array
-// let properNounArr = [];
-// function getProperNounArr () {
-//   taggedArr.forEach(function (item) {
-//   if ((item.tag === 'NNP') || (item.tag === 'NNPS')) {
-//     properNounArr.push(item.word);
-//     }
-//   }
-//   )
-//   return properNounArr
-// }
-//
-//iterating over proper noun array to get array of unique nouns
 
-//
 // //create array of objects containing proper nouns and their frequency in the document
 // function getProperNounFrequency () {
 //   let properNounCount = _.countBy(getActualProperNouns())
