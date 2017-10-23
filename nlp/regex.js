@@ -27,9 +27,8 @@ function returnRegExTags(input) {
 }
 
 //function to create tag objects out of returned tags
-function returnTagObjs(input) {
+function returnTagObjs(tagArr) {
   let tagObjArr = [];
-  let tagArr = returnRegExTags(input);
 
   for (i in tagArr) {
     let tag = tagArr[i];
@@ -38,9 +37,15 @@ function returnTagObjs(input) {
       case_id: "",
       file_id: ""
     };
+    console.log('is this where the problem is? ', newTagObj)
     tagObjArr.push(newTagObj);
   }
   return tagObjArr;
 }
 
-module.exports = { returnRegExTags, returnTagObjs };
+function returnRegExObjs(input) {
+  let tagArr = returnRegExTags(input);
+  returnTagObjs(tagArr)
+}
+
+module.exports = { returnRegExTags, returnTagObjs, returnRegExObjs };
