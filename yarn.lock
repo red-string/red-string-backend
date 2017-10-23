@@ -1425,6 +1425,10 @@ pako@~1.0.2:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.6.tgz#0101211baa70c4bca4a0f63f2206e97b7dfaf258"
 
+paralleldots@^1.1.41:
+  version "1.1.41"
+  resolved "https://registry.yarnpkg.com/paralleldots/-/paralleldots-1.1.41.tgz#1e16004e5d4ac2fdcbf0075bf306ad23e45e59fc"
+
 parse-glob@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/parse-glob/-/parse-glob-3.0.4.tgz#b2c376cfb11f35513badd173ef0bb6e3a388391c"
@@ -1527,6 +1531,10 @@ pseudomap@^1.0.2:
 punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
+
+python-shell@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/python-shell/-/python-shell-0.4.0.tgz#259c5470d885292b22e906a57b085f651752f956"
 
 qs@6.5.1:
   version "6.5.1"
