@@ -1,10 +1,12 @@
 const _ = require("lodash");
 const {getUniqueTags} = require('./tokenizer')
+const {returnTagObjs} = require('./regex')
 
 let textArr = [];
 let splitText = [];
 let taggedArr = [];
 let filteredArr = [];
+let finalArr = []
 
 function maxSizeFileHandler(textFile) {
   const length = textFile.length;
@@ -25,15 +27,12 @@ function nlptk(text) {
     fliptext = _.map(splitText, _.trim);
     // taggedArr = _.filter(splitText, /\(.*\)/g);
     taggedArr = fliptext.filter(stuff => stuff.indexOf("(") > -1);
-
     // textString += text.toString();
   });
   py.stdout.on("end", function() {
     // console.log("Data! ", textArr);
-    console.log("tagged arr ", taggedArr);
     filteredArr = getUniqueTags(taggedArr);
-    console.log('did it work? yes? ', filteredArr)
-    // console.log(taggedArr);
+    console.log('is this where the filtered tags are?', filteredArr)
   });
   py.stderr.on("data", data => {
     console.log(`stderr: ${data}`);
@@ -42,4 +41,9 @@ function nlptk(text) {
   py.stdin.end();
 }
 
-module.exports = { maxSizeFileHandler, nlptk };
+function getTagArr (regEx, nlp) {
+  finalArr = nlp.concat(regEx);
+  return finalArr;
+}
+
+module.exports = { maxSizeFileHandler, nlptk, getTagArr };

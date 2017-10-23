@@ -25,9 +25,13 @@ function getDocXText(fileObject, fileLocation) {
 
 //function to get tags from uploaded text file
 function LOL(fileObject, fileLocation) {
+  let fileTagsArr = []
   const text = getDocXText(fileObject, fileLocation);
+  let nlpArr = nlptk(text);
   console.log("reg ex?", returnRegExObjs(text));
-  nlptk(text);
+  let regExArr = returnRegExObjs(text);
+  fileTagsArr = regExArr.concat(nlpArr)
+  console.log('tags arr', fileTagsArr)
 }
 
 module.exports = { LOL };

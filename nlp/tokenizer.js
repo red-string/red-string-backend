@@ -1,29 +1,6 @@
 const _ = require('lodash');
 const {returnTagObjs} = require('./regex')
 
-let testArr = [ '(S',
-  '(PERSON Tom/NNP Sawyer/NNP)',
-  '(PERSON Mr./NNP Mark/NNP Twain/NNP)',
-  '(PERSON Aunt/NNP Polly/NNP)',
-
-  '(PERSON Aunt/NNP Polly/NNP)',
-  '(PERSON Tom/NNP)',
-  '(ORGANIZATION Aunt/NNP Polly/NNP)',
-  '(ORGANIZATION Widow/NNP Douglas/NNP)',
-  '(PERSON Tom/NN)',
-  '(ORGANIZATION Widow/NNP)',
-  '(PERSON Tom/NNP Sawyer/NNP)',
-  '(PERSON Moses/NNS)',
-  '(GPE Moses/NNP)',
-  '(PERSON Miss/NNP Watson/NNP)',
-  '(PERSON Miss/NNP Watson/NNP)',
-  '(GPE Huckleberry/NNP)',
-  '(PERSON Huckleberry/NNP)',
-  '(PERSON Huckleberry/NNP)',
-  '(PERSON Iwas/NNP)',
-  '(PERSON Tom/NNP Sawyer/NNP)',
-  '(PERSON Imost/NNP)' ]
-
 let cleanedStr = ""
 let filteredArr = []
 const tagEndFilter = /\/NN.?\)?/gi;
@@ -42,8 +19,7 @@ function cleanTagArr (arr) {
 function getUniqueTags (arr) {
   let tagsArr = cleanTagArr(arr)
   let uniqueTagsArr = _.uniq(tagsArr);
-  console.log('unique tags arr', uniqueTagsArr)
-  returnTagObjs(uniqueTagsArr);
+  return returnTagObjs(uniqueTagsArr);
 }
 
 // function
