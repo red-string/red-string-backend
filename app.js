@@ -66,6 +66,16 @@ app.get("/case/files/tags/:id", (req, res) => {
   if (!req.params) res.send(false);
 });
 
+//all tags from case
+app.get("/:case/files/tags", async (req, res) => {
+  console.log(req.params);
+  let tags = await getAllTagsFromCase(req.params.case)
+  if (req.params) res.send(tags);
+  if (!req.params) res.send(false);
+});
+
+
+
 // ===========
 // Posts
 //============
