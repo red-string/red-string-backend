@@ -42,8 +42,10 @@ function returnTagObjs(tagArr) {
 }
 
 function returnRegExObjs(input) {
-  let tagArr = returnRegExTags(input);
-  return returnTagObjs(tagArr)
+  return new Promise((resolve, reject) => {
+    let tagArr = returnRegExTags(input);
+    resolve(returnTagObjs(tagArr));
+  });
 }
 
 module.exports = { returnRegExTags, returnTagObjs, returnRegExObjs };
