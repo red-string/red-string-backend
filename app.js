@@ -46,7 +46,7 @@ app.get("/case", async (req, res) => {
 });
 
 app.get("/case/:id", async (req, res) => {
-  let files = await getAllFilesFromCase(req.params.id)
+  let files = await getAllFilesFromCase(req.params.id);
   if (req.params) res.send(files);
   if (!req.params) res.send(false);
 });
@@ -87,12 +87,19 @@ app.post("/case/new", (req, res) => {
   if (!newCase) res.send(false);
 });
 
-app.post("/case/:case/new", upload.single("file"), (req, res) => {
+app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   const document = req.file;
-  console.log(document);
+  const thisCase = req.params.case;
   const fileLocation = __dirname + "/" + document.path;
-  console.log("This is a document? ", document);
-  LOL(document, fileLocation);
+  const fileObject = {
+    file_name: req.body.file_name,
+    file_description: req.body.file_description,
+    case_id: thisCase
+  };
+  const fileId = await createFile(fileObject);
+  const tags = LOL(document, fileLocation, fileId);
+  console.log(tags);
+  createTags(tags);
   if (document) res.send(true);
   if (!document) res.send(false);
 });

@@ -2,8 +2,8 @@ const JSZip = require("jszip");
 const Docxtemplater = require("docxtemplater");
 const fs = require("fs");
 const path = require("path");
-const { returnRegExTags, returnTagObjs } = require("./regex");
-const { pyNLP, endPynlp } = require("./pypractice");
+const { returnRegExTags, returnRegExObjs, returnTagObjs } = require("./regex");
+// const { pyNLP, endPynlp } = require("./pypractice");
 const { maxSizeFileHandler, nlptk } = require("./helper");
 
 const _ = require("lodash");
@@ -24,10 +24,14 @@ function getDocXText(fileObject, fileLocation) {
 // const pyshell = new PythonShell('pypractice.py', options);
 
 //function to get tags from uploaded text file
-function LOL(fileObject, fileLocation) {
+async function LOL(fileObject, fileLocation, fileId, caseId) {
+  let fileTagsArr = [];
   const text = getDocXText(fileObject, fileLocation);
-  console.log(returnTagObjs(text));
-  nlptk(text);
+  let nlpArr = await nlptk(text);
+  let regExArr = await returnRegExObjs(text, fileId, caseId);
+  fileTagsArr = regExArr.concat(nlpArr);
+  console.log("tags arr", fileTagsArr);
+  return fileTagsArr;
 }
 
 module.exports = { LOL };
