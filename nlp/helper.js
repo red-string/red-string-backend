@@ -1,9 +1,10 @@
 const _ = require("lodash");
+const {getUniqueTags} = require('./tokenizer')
 
 let textArr = [];
 let splitText = [];
 let taggedArr = [];
-let thing;
+let filteredArr = [];
 
 function maxSizeFileHandler(textFile) {
   const length = textFile.length;
@@ -29,7 +30,9 @@ function nlptk(text) {
   });
   py.stdout.on("end", function() {
     // console.log("Data! ", textArr);
-    console.log("splits? ", taggedArr);
+    console.log("tagged arr ", taggedArr);
+    filteredArr = getUniqueTags(taggedArr);
+    console.log('did it work? yes? ', filteredArr)
     // console.log(taggedArr);
   });
   py.stderr.on("data", data => {

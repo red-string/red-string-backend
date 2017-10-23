@@ -27,10 +27,9 @@ function returnRegExTags(input) {
 }
 
 //function to create tag objects out of returned tags
-function returnTagObjs(input) {
+function returnTagObjs(tagArr) {
   let tagObjArr = [];
-  let tagArr = returnRegExTags(input);
-
+  console.log("this is what I am passing in to the tag object creator", tagArr)
   for (i in tagArr) {
     let tag = tagArr[i];
     let newTagObj = {
@@ -43,4 +42,9 @@ function returnTagObjs(input) {
   return tagObjArr;
 }
 
-module.exports = { returnRegExTags, returnTagObjs };
+function returnRegExObjs(input) {
+  let tagArr = returnRegExTags(input);
+  returnTagObjs(tagArr)
+}
+
+module.exports = { returnRegExTags, returnTagObjs, returnRegExObjs };

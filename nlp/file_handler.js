@@ -2,7 +2,7 @@ const JSZip = require("jszip");
 const Docxtemplater = require("docxtemplater");
 const fs = require("fs");
 const path = require("path");
-const { returnRegExTags, returnTagObjs } = require("./regex");
+const { returnRegExTags, returnRegExObjs, returnTagObjs } = require("./regex");
 // const { pyNLP, endPynlp } = require("./pypractice");
 const { maxSizeFileHandler, nlptk } = require("./helper");
 
@@ -26,7 +26,7 @@ function getDocXText(fileObject, fileLocation) {
 //function to get tags from uploaded text file
 function LOL(fileObject, fileLocation) {
   const text = getDocXText(fileObject, fileLocation);
-  console.log(returnTagObjs(text));
+  console.log("reg ex?", returnRegExObjs(text));
   nlptk(text);
 }
 
