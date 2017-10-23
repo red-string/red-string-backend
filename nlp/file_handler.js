@@ -24,14 +24,14 @@ function getDocXText(fileObject, fileLocation) {
 // const pyshell = new PythonShell('pypractice.py', options);
 
 //function to get tags from uploaded text file
-function LOL(fileObject, fileLocation) {
-  let fileTagsArr = []
+async function LOL(fileObject, fileLocation) {
+  let fileTagsArr = [];
   const text = getDocXText(fileObject, fileLocation);
-  let nlpArr = nlptk(text);
+  let nlpArr = await nlptk(text);
   console.log("reg ex?", returnRegExObjs(text));
-  let regExArr = returnRegExObjs(text);
-  fileTagsArr = regExArr.concat(nlpArr)
-  console.log('tags arr', fileTagsArr)
+  let regExArr = await returnRegExObjs(text);
+  fileTagsArr = regExArr.concat(nlpArr);
+  console.log("tags arr", fileTagsArr);
 }
 
 module.exports = { LOL };

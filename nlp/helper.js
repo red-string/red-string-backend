@@ -1,12 +1,12 @@
 const _ = require("lodash");
-const {getUniqueTags} = require('./tokenizer')
-const {returnTagObjs} = require('./regex')
+const { getUniqueTags } = require("./tokenizer");
+const { returnTagObjs } = require("./regex");
 
 let textArr = [];
 let splitText = [];
 let taggedArr = [];
 let filteredArr = [];
-let finalArr = []
+let finalArr = [];
 
 function maxSizeFileHandler(textFile) {
   const length = textFile.length;
@@ -19,29 +19,31 @@ function maxSizeFileHandler(textFile) {
 }
 
 function nlptk(text) {
-  const spawn = require("child_process").spawn;
-  const py = spawn("python3", [__dirname + "/nlptk.py"]);
-  py.stdout.on("data", function(text) {
-    textArr.push(text.toString());
-    splitText = _.split([textArr], "\n");
-    fliptext = _.map(splitText, _.trim);
-    // taggedArr = _.filter(splitText, /\(.*\)/g);
-    taggedArr = fliptext.filter(stuff => stuff.indexOf("(") > -1);
-    // textString += text.toString();
+  return new Promise((resolve, reject) => {
+    const spawn = require("child_process").spawn;
+    const py = spawn("python3", [__dirname + "/nlptk.py"]);
+    py.stdout.on("data", function(text) {
+      textArr.push(text.toString());
+      splitText = _.split([textArr], "\n");
+      fliptext = _.map(splitText, _.trim);
+      // taggedArr = _.filter(splitText, /\(.*\)/g);
+      taggedArr = fliptext.filter(stuff => stuff.indexOf("(") > -1);
+      // textString += text.toString();
+    });
+    py.stdout.on("end", function() {
+      // console.log("Data! ", textArr);
+      resolve((filteredArr = getUniqueTags(taggedArr)));
+      console.log("is this where the filtered tags are?", filteredArr);
+    });
+    py.stderr.on("data", data => {
+      console.log(`stderr: ${data}`);
+    });
+    py.stdin.write(JSON.stringify(text));
+    py.stdin.end();
   });
-  py.stdout.on("end", function() {
-    // console.log("Data! ", textArr);
-    filteredArr = getUniqueTags(taggedArr);
-    console.log('is this where the filtered tags are?', filteredArr)
-  });
-  py.stderr.on("data", data => {
-    console.log(`stderr: ${data}`);
-  });
-  py.stdin.write(JSON.stringify(text));
-  py.stdin.end();
 }
 
-function getTagArr (regEx, nlp) {
+function getTagArr(regEx, nlp) {
   finalArr = nlp.concat(regEx);
   return finalArr;
 }
