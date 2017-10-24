@@ -117,7 +117,17 @@ function getTagById(tagId) {
 // Going to have to mess around with this one once we actually get some data
 function getFilesThatShareTag(caseId, tagger) {
   return File.query()
-    .select("Files.*", "Tags.*")
+    .select(
+      "file_name",
+      "file_d3",
+      "file_id",
+      "Tags.file_id",
+      "Tags.tag",
+      "Tags.tag_d3"
+    )
+    .where("Tags.tag", "=", tagger)
+    .andWhere("file_id", "!=", "file_id")
+    .join("file_id", "Tags.file_id")
     .then(response => {
       return response;
     });
@@ -127,7 +137,7 @@ async function test() {
   console.log(theStuff);
 }
 
-test();
+// test();
 
 // ============================================= Get Multiple
 
