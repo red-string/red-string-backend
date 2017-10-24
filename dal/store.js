@@ -4,8 +4,7 @@ const { getLastCaseId, getLastFileId, getLastTagId } = require("./query");
 async function createCase(caseObject) {
   const lastId = await getLastCaseId();
   let d3;
-  console.log(lastId == true);
-  if (lastId) {
+  if (lastId > 0) {
     d3 = "c" + (lastId[0].case_id + 1);
   } else {
     d3 = "c1";
@@ -22,23 +21,26 @@ async function createCase(caseObject) {
     });
 }
 
-function createFile(fileObject) {
-  return new Promise((resolve, reject) => {
-    const lastId = getLastFileId();
-    const d3 = "f" + (lastId + 1);
-    File.query()
-      .insert({
-        file_name: fileObject.file_name,
-        file_description: fileObject.file_description,
-        file_d3: d3,
-        case_id: fileObject.case_id,
-        file_text: fileObject.file_text
-      })
-      .then(response => {
-        console.log(response);
-        resolve(response);
-      });
-  });
+async function createFile(fileObject) {
+  const lastId = await getLastFileId();
+  const d3 = "f" + (lastId + 1);
+  if (lastId > 0) {
+    d3 = "f" + (lastId[0].case_id + 1);
+  } else {
+    d3 = "f1";
+  }
+  return File.query()
+    .insert({
+      file_name: fileObject.file_name,
+      file_description: fileObject.file_description,
+      file_d3: d3,
+      case_id: fileObject.case_id,
+      file_text: fileObject.file_text
+    })
+    .then(response => {
+      console.log(response);
+      return response;
+    });
 }
 
 async function createTags(tagObjectArray) {

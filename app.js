@@ -69,12 +69,10 @@ app.get("/case/files/tags/:id", (req, res) => {
 //all tags from case
 app.get("/:case/files/tags", async (req, res) => {
   console.log(req.params);
-  let tags = await getAllTagsFromCase(req.params.case)
+  let tags = await getAllTagsFromCase(req.params.case);
   if (req.params) res.send(tags);
   if (!req.params) res.send(false);
 });
-
-
 
 // ===========
 // Posts
@@ -89,6 +87,7 @@ app.post("/case/new", (req, res) => {
 
 app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   console.log("File", req.file);
+  console.log("params", req.params);
   const document = req.file;
   const thisCase = req.params.case;
   const fileLocation = __dirname + "/" + document.path;
@@ -98,7 +97,7 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
     case_id: thisCase
   };
   const fileId = await createFile(fileObject);
-  const tags = LOL(document, fileLocation, fileId);
+  const tags = LOL(document, fileLocation, fileId, thisCase);
   createTags(tags);
   if (document) res.send(true);
   if (!document) res.send(false);
