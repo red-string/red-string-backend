@@ -36,7 +36,7 @@ function createFile(fileObject) {
       })
       .then(response => {
         console.log(response);
-        resolve(resposne);
+        resolve(response);
       });
   });
 }
@@ -85,7 +85,7 @@ function createRoute(routeObject) {
       })
       .then(response => {
         console.log(response);
-        resolve(resposne);
+        resolve(response);
       });
   });
 }
