@@ -116,15 +116,13 @@ function getTagById(tagId) {
 // Going to have to mess around with this one once we actually get some data
 function getFilesThatShareTag(caseId, tag) {
   return new Promise((resolve, reject) => {
-    Tags.query()
-      .select("Tag.file_id", "File.file_id")
-      .where("tag", "=", "tag")
-      .join("File.file_id", "=", "Tag.file_id")
-      .then(files => {
-        resolve(files);
-      });
+    File.query()
+      .select("file_d3", "file_name", "file_description", "Tags.*")
+      .then(response => response);
   });
 }
+
+console.log(getFilesThatShareTag(1, "Australia"));
 
 // ============================================= Get Multiple
 
