@@ -1,5 +1,5 @@
 const { Case, File, Tag, Route } = require("./Models");
-const fs = require('fs');
+const fs = require("fs");
 
 //========================================= Get ALL From ... ===============
 function getAllCases() {
@@ -115,15 +115,19 @@ function getTagById(tagId) {
 
 // ============================================ Get Shared
 // Going to have to mess around with this one once we actually get some data
-function getFilesThatShareTag(caseId, tag) {
-  return new Promise((resolve, reject) => {
-    File.query()
-      .select("file_d3", "file_name", "file_description", "Tags.*")
-      .then(response => response);
-  });
+function getFilesThatShareTag(caseId, tagger) {
+  return File.query()
+    .select("Files.*", "Tags.*")
+    .then(response => {
+      return response;
+    });
+}
+async function test() {
+  const theStuff = await getFilesThatShareTag(1, "Australia");
+  console.log(theStuff);
 }
 
-console.log(getFilesThatShareTag(1, "Australia"));
+test();
 
 // ============================================= Get Multiple
 
@@ -134,12 +138,11 @@ function getMultipleFiles(fileIdArray) {
 // =================================== Delete File (once all tags are created and file data is stored!)
 
 function deleteFile(location) {
-    console.log("DELETING ", location, "!")
-    fs.unlink(location,function(err){
-        if(err) return console.log(err);
-        console.log('file deleted successfully');
-   });
-
+  console.log("DELETING ", location, "!");
+  fs.unlink(location, function(err) {
+    if (err) return console.log(err);
+    console.log("file deleted successfully");
+  });
 }
 
 module.exports = {
