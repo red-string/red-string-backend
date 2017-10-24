@@ -3,3 +3,5 @@ nlp/gmb/
 DS_Store
 nlp/.DS_Store
 .DS_Store
+/dal/db/redstring.db
+dal/db/redstring.db
