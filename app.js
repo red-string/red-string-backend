@@ -86,19 +86,17 @@ app.post("/case/new", (req, res) => {
 });
 
 app.post("/case/:case/new", upload.single("file"), async (req, res) => {
-  console.log("File", req.file);
-  console.log("params", req.params);
   const document = req.file;
   const thisCase = req.params.case;
   const fileLocation = __dirname + "/" + document.path;
   const fileObject = {
-    file_name: req.body.file_name,
-    file_description: req.body.file_description,
+    file_name: req.body.name,
+    file_description: req.body.description,
     case_id: thisCase
   };
   const fileId = await createFile(fileObject);
-  const tags = LOL(document, fileLocation, fileId, thisCase);
-  createTags(tags);
+  const tags = await LOL(document, fileLocation);
+  createTags(tags, fileId.id, thisCase);
   if (document) res.send(true);
   if (!document) res.send(false);
 });
