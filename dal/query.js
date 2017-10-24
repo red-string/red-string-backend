@@ -59,8 +59,8 @@ function getLastCaseId() {
 function getLastFileId() {
   return new Promise((resolve, reject) => {
     File.query()
-      .select("case_id")
-      .orderBy("case_id", "desc")
+      .select("file_id")
+      .orderBy("file_id", "desc")
       .limit(1)
       .then(response => {
         resolve(response);

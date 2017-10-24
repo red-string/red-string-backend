@@ -4,8 +4,7 @@ const { getLastCaseId, getLastFileId, getLastTagId } = require("./query");
 async function createCase(caseObject) {
   const lastId = await getLastCaseId();
   let d3;
-  console.log(lastId == true);
-  if (lastId) {
+  if (lastId[0].case_id > 0) {
     d3 = "c" + (lastId[0].case_id + 1);
   } else {
     d3 = "c1";
@@ -22,55 +21,49 @@ async function createCase(caseObject) {
     });
 }
 
-function createFile(fileObject) {
-  return new Promise((resolve, reject) => {
-    const lastId = getLastFileId();
-    const d3 = "f" + (lastId + 1);
-    File.query()
-      .insert({
-        file_name: fileObject.file_name,
-        file_description: fileObject.file_description,
-        file_d3: d3,
-        case_id: fileObject.case_id,
-        file_text: fileObject.file_text
-      })
-      .then(response => {
-        console.log(response);
-        resolve(response);
-      });
-  });
+async function createFile(fileObject) {
+  const lastId = await getLastFileId();
+  let d3;
+  console.log(lastId);
+  if (lastId[0].file_id > 0) {
+    d3 = "f" + (lastId[0].file_id + 1);
+  } else {
+    d3 = "f1";
+  }
+  return File.query()
+    .insert({
+      file_name: fileObject.file_name,
+      file_description: fileObject.file_description,
+      file_d3: d3,
+      case_id: fileObject.case_id,
+      file_text: fileObject.file_text
+    })
+    .then(response => {
+      console.log("this is file being saved", response);
+      return response;
+    });
 }
 
-async function createTags(tagObjectArray) {
-  // tagObjectArray should look like this:
-  //   tagObjectArray = [
-  //     {
-  //       tag: "tag",
-  //       file_id: 1,
-  //       case_id: 2
-  //     },
-  //     {
-  //       tag: "tag2",
-  //       file_id: 1,
-  //       case_id: 2
-  //     }
-  //   ];
-  return new Promise((resolve, reject) => {
-    tagArray.forEach(tag => {
-      const lastId = getLastTagId();
-      const d3 = "t" + (lastId + 1);
-      Tag.query()
-        .insert({
-          tag: tag.tag,
-          tag_d3: d3,
-          case_id: tag.case_id,
-          file_id: tag.file_id
-        })
-        .then(response => {
-          console.log(response);
-        });
-    });
-    resolve();
+async function createTags(tagObjectArray, fileId, caseId) {
+  const lastId = await getLastTagId();
+  let startNum;
+  if (lastId > 0) {
+    startNum = lastId[0].tag_id + 1;
+  } else {
+    startNum = 0;
+  }
+  return tagObjectArray.forEach(tag => {
+    startNum++;
+    Tag.query()
+      .insert({
+        tag: tag.tag,
+        tag_d3: "t" + startNum,
+        case_id: caseId,
+        file_id: fileId
+      })
+      .then(response => {
+        return response;
+      });
   });
 }
 
