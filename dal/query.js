@@ -72,8 +72,8 @@ function getLastFileId() {
 function getLastTagId() {
   return new Promise((resolve, reject) => {
     Tag.query()
-      .select("case_id")
-      .orderBy("case_id", "desc")
+      .select("tag_id")
+      .orderBy("tag_id", "desc")
       .limit(1)
       .then(response => {
         resolve(response);

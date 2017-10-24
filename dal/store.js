@@ -10,7 +10,7 @@ async function createCase(caseObject) {
   } else {
     d3 = "c1";
   }
-  
+
   return Case.query()
     .insert({
       case_name: caseObject.case_name,
@@ -27,7 +27,7 @@ async function createFile(fileObject) {
   const lastId = await getLastFileId();
   let d3;
   console.log(lastId);
-  if (lastId[0].file_id > 0) {
+  if (lastId.length !== 0) {
     d3 = "f" + (lastId[0].file_id + 1);
   } else {
     d3 = "f1";
@@ -49,7 +49,8 @@ async function createFile(fileObject) {
 async function createTags(tagObjectArray, fileId, caseId) {
   const lastId = await getLastTagId();
   let startNum;
-  if (lastId > 0) {
+  console.log(lastId);
+  if (lastId.length !== 0) {
     startNum = lastId[0].tag_id + 1;
   } else {
     startNum = 0;
