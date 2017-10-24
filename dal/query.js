@@ -115,29 +115,33 @@ function getTagById(tagId) {
 
 // ============================================ Get Shared
 // Going to have to mess around with this one once we actually get some data
+
 function getFilesThatShareTag(caseId, tagger) {
   return File.query()
     .select(
-      "file_name",
-      "file_d3",
-      "file_id",
-      "Tags.file_id",
-      "Tags.tag",
-      "Tags.tag_d3"
+      "Files.file_name",
+      "Files.file_d3",
+      "Files.file_description",
+      "tag_d3",
+      "Files.case_id",
+      "tag"
     )
-    .where("Tags.tag", "=", tagger)
-    .andWhere("file_id", "!=", "file_id")
-    .join("file_id", "Tags.file_id")
+    .from("Tags")
+    .join("Files")
+    .groupBy("file_d3")
+    .where("tag", "=", tagger)
+    .andWhere("Files.case_id", "=", caseId)
     .then(response => {
       return response;
     });
 }
+
 async function test() {
-  const theStuff = await getFilesThatShareTag(1, "Australia");
-  console.log(theStuff);
+  const result = await getFilesThatShareTag(1, "Mr. Mark Twain");
+  console.log(result);
 }
 
-// test();
+test();
 
 // ============================================= Get Multiple
 

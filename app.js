@@ -61,9 +61,10 @@ app.get("/case/:case/:id", (req, res) => {
 });
 
 //by tag id
-app.get("/case/files/tags/:id", (req, res) => {
+app.get("/:case/files/tags/:id", async (req, res) => {
   console.log(req.params);
-  if (req.params) res.send(true);
+  const filesArray = await getFilesThatShareTag(req.params.case, req.params.id);
+  if (req.params) res.send(filesArray);
   if (!req.params) res.send(false);
 });
 
@@ -97,12 +98,11 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   };
   const fileId = await createFile(fileObject);
   const tags = await LOL(document, fileLocation);
-  console.log('tags created here', tags)
-  createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation))
+  console.log("tags created here", tags);
+  createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation));
 
   if (document) res.send(true);
   if (!document) res.send(false);
-
 });
 
 // ============================================
