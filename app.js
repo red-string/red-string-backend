@@ -88,7 +88,7 @@ app.post("/case/new", (req, res) => {
 });
 
 app.post("/case/:case/new", upload.single("file"), async (req, res) => {
-  const document = req.file;
+  const document = req.body.file;
   const thisCase = req.params.case;
   const fileLocation = __dirname + "/" + document.path;
   const fileObject = {
@@ -98,7 +98,6 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   };
   const fileId = await createFile(fileObject);
   const tags = LOL(document, fileLocation, fileId);
-  console.log(tags);
   createTags(tags);
   if (document) res.send(true);
   if (!document) res.send(false);
