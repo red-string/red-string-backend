@@ -62,7 +62,7 @@ function getLastFileId() {
       .select("case_id")
       .orderBy("case_id", "desc")
       .limit(1)
-      .then(resposne => {
+      .then(response => {
         resolve(response);
       });
   });
@@ -74,7 +74,7 @@ function getLastTagId() {
       .select("case_id")
       .orderBy("case_id", "desc")
       .limit(1)
-      .then(resposne => {
+      .then(response => {
         resolve(response);
       });
   });
