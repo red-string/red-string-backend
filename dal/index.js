@@ -10,7 +10,8 @@ const {
   getAllTagsFromCase,
   getAllTagsFromFile,
   getAllFilesFromCase,
-  getAllCases
+  getAllCases,
+  deleteFile
 } = require("./query");
 
 const { createTags, createFile, createCase, createRoute } = require("./store");
@@ -31,5 +32,6 @@ module.exports = {
   createTags,
   createFile,
   createCase,
-  createRoute
+  createRoute,
+  deleteFile
 };

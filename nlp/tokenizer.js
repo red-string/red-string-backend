@@ -22,6 +22,11 @@ function getUniqueTags (arr) {
   return returnTagObjs(uniqueTagsArr);
 }
 
+// function getTagFrequency (arr) {
+//   let tagCount = _.countBy(arr)
+// console.log(tagCount)
+// }
+
 
 
 module.exports = {getUniqueTags}
