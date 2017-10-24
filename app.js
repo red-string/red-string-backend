@@ -17,7 +17,8 @@ const {
   getAllCases,
   createTags,
   createFile,
-  createCase
+  createCase,
+  deleteFile
 } = require("./dal");
 const { LOL } = require("./nlp/file_handler");
 const storage = multer.diskStorage({
@@ -96,9 +97,12 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   };
   const fileId = await createFile(fileObject);
   const tags = await LOL(document, fileLocation);
-  createTags(tags, fileId.id, thisCase);
+  console.log('tags created here', tags)
+  createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation))
+
   if (document) res.send(true);
   if (!document) res.send(false);
+
 });
 
 // ============================================
