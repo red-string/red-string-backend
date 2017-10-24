@@ -88,7 +88,8 @@ app.post("/case/new", (req, res) => {
 });
 
 app.post("/case/:case/new", upload.single("file"), async (req, res) => {
-  const document = req.body.file;
+  console.log("File", req.file);
+  const document = req.file;
   const thisCase = req.params.case;
   const fileLocation = __dirname + "/" + document.path;
   const fileObject = {
