@@ -1,4 +1,5 @@
 const { Case, File, Tag, Route } = require("./Models");
+const fs = require('fs');
 
 //========================================= Get ALL From ... ===============
 function getAllCases() {
@@ -130,6 +131,17 @@ function getMultipleFiles(fileIdArray) {
   return new Promise((resolve, reject) => {});
 }
 
+// =================================== Delete File (once all tags are created and file data is stored!)
+
+function deleteFile(location) {
+    console.log("DELETING ", location, "!")
+    fs.unlink(location,function(err){
+        if(err) return console.log(err);
+        console.log('file deleted successfully');
+   });
+
+}
+
 module.exports = {
   getMultipleFiles,
   getFilesThatShareTag,
@@ -142,5 +154,6 @@ module.exports = {
   getAllTagsFromCase,
   getAllTagsFromFile,
   getAllFilesFromCase,
-  getAllCases
+  getAllCases,
+  deleteFile
 };
