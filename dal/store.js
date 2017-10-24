@@ -4,8 +4,7 @@ const { getLastCaseId, getLastFileId, getLastTagId } = require("./query");
 async function createCase(caseObject) {
   const lastId = await getLastCaseId();
   let d3;
-  console.log(lastId == true);
-  if (lastId) {
+  if (lastId.length !== 0) {
     d3 = "c" + (lastId[0].case_id + 1);
   } else {
     d3 = "c1";
