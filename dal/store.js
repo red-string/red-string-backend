@@ -11,6 +11,7 @@ async function createCase(caseObject) {
   } else {
     d3 = "c1";
   }
+  
   return Case.query()
     .insert({
       case_name: caseObject.case_name,
