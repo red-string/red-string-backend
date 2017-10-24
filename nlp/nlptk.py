@@ -14,7 +14,7 @@ def hello():
     tokens = word_tokenize(lines[0])
     words_tagged = pos_tag(tokens)
     chunks = ne_chunk(words_tagged)
-
+    
     print(chunks)
 
 
