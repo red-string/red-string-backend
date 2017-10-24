@@ -1,5 +1,5 @@
 const { Case, File, Tag, Route } = require("./Models");
-const fs = require('fs');
+const fs = require("fs");
 
 //========================================= Get ALL From ... ===============
 function getAllCases() {
@@ -72,8 +72,8 @@ function getLastFileId() {
 function getLastTagId() {
   return new Promise((resolve, reject) => {
     Tag.query()
-      .select("case_id")
-      .orderBy("case_id", "desc")
+      .select("tag_id")
+      .orderBy("tag_id", "desc")
       .limit(1)
       .then(response => {
         resolve(response);
@@ -115,17 +115,29 @@ function getTagById(tagId) {
 
 // ============================================ Get Shared
 // Going to have to mess around with this one once we actually get some data
-function getFilesThatShareTag(caseId, tag) {
-  return new Promise((resolve, reject) => {
-    Tags.query()
-      .select("Tag.file_id", "File.file_id")
-      .where("tag", "=", "tag")
-      .join("File.file_id", "=", "Tag.file_id")
-      .then(files => {
-        resolve(files);
-      });
-  });
+function getFilesThatShareTag(caseId, tagger) {
+  return File.query()
+    .select(
+      "file_name",
+      "file_d3",
+      "file_id",
+      "Tags.file_id",
+      "Tags.tag",
+      "Tags.tag_d3"
+    )
+    .where("Tags.tag", "=", tagger)
+    .andWhere("file_id", "!=", "file_id")
+    .join("file_id", "Tags.file_id")
+    .then(response => {
+      return response;
+    });
 }
+async function test() {
+  const theStuff = await getFilesThatShareTag(1, "Australia");
+  console.log(theStuff);
+}
+
+// test();
 
 // ============================================= Get Multiple
 
@@ -136,12 +148,11 @@ function getMultipleFiles(fileIdArray) {
 // =================================== Delete File (once all tags are created and file data is stored!)
 
 function deleteFile(location) {
-    console.log("DELETING ", location, "!")
-    fs.unlink(location,function(err){
-        if(err) return console.log(err);
-        console.log('file deleted successfully');
-   });
-
+  console.log("DELETING ", location, "!");
+  fs.unlink(location, function(err) {
+    if (err) return console.log(err);
+    console.log("file deleted successfully");
+  });
 }
 
 module.exports = {
