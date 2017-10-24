@@ -88,13 +88,13 @@ app.post("/case/new", (req, res) => {
 });
 
 app.post("/case/:case/new", upload.single("file"), async (req, res) => {
-  console.log("File", req.file);
+  console.log("File in backend", req.file, req.body);
   const document = req.file;
   const thisCase = req.params.case;
   const fileLocation = __dirname + "/" + document.path;
   const fileObject = {
-    file_name: req.body.file_name,
-    file_description: req.body.file_description,
+    file_name: req.body.name,
+    file_description: req.body.description,
     case_id: thisCase
   };
   const fileId = await createFile(fileObject);
