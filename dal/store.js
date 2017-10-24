@@ -3,12 +3,14 @@ const { getLastCaseId, getLastFileId, getLastTagId } = require("./query");
 
 async function createCase(caseObject) {
   const lastId = await getLastCaseId();
+  console.log("This is the lastId variable = ", lastId.length);
   let d3;
-  if (lastId[0].case_id > 0) {
+  if (lastId.length !== 0) {
     d3 = "c" + (lastId[0].case_id + 1);
   } else {
     d3 = "c1";
   }
+  
   return Case.query()
     .insert({
       case_name: caseObject.case_name,
