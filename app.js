@@ -91,8 +91,10 @@ app.post("/case/new", (req, res) => {
 });
 
 app.post("/case/:case/new", upload.single("file"), async (req, res) => {
+  console.log(req.body);
   const document = req.file;
   const thisCase = req.params.case;
+  const docType = req.body.type;
   const fileLocation = __dirname + "/" + document.path;
   const fileObject = {
     file_name: req.body.name,
@@ -100,7 +102,7 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
     case_id: thisCase
   };
   const fileId = await createFile(fileObject);
-  const tags = await LOL(document, fileLocation);
+  const tags = await LOL(document, fileLocation, docType);
   console.log("tags created here", tags);
   createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation));
 
