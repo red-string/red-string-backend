@@ -2,12 +2,6 @@ const _ = require("lodash");
 const { getUniqueTags } = require("./tokenizer");
 const { returnTagObjs } = require("./regex");
 
-let textArr = [];
-let splitText = [];
-let taggedArr = [];
-let filteredArr = [];
-let finalArr = [];
-
 function maxSizeFileHandler(textFile) {
   const length = textFile.length;
   const arraySize = Math.ceil(length / 6500);
@@ -19,6 +13,10 @@ function maxSizeFileHandler(textFile) {
 }
 
 function nlptk(text) {
+  let textArr = [];
+  let splitText = [];
+  let taggedArr = [];
+  let filteredArr = [];
   return new Promise((resolve, reject) => {
     const spawn = require("child_process").spawn;
     const py = spawn("python3", [__dirname + "/nlptk.py"]);
@@ -43,7 +41,7 @@ function nlptk(text) {
 }
 
 function getTagArr(regEx, nlp) {
-  finalArr = nlp.concat(regEx);
+  const finalArr = nlp.concat(regEx);
   return finalArr;
 }
 
