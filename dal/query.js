@@ -1,5 +1,5 @@
 const { Case, File, Tag, Route } = require("./Models");
-const fs = require('fs');
+const fs = require("fs");
 
 //========================================= Get ALL From ... ===============
 function getAllCases() {
@@ -72,8 +72,8 @@ function getLastFileId() {
 function getLastTagId() {
   return new Promise((resolve, reject) => {
     Tag.query()
-      .select("case_id")
-      .orderBy("case_id", "desc")
+      .select("tag_id")
+      .orderBy("tag_id", "desc")
       .limit(1)
       .then(response => {
         resolve(response);
@@ -115,17 +115,51 @@ function getTagById(tagId) {
 
 // ============================================ Get Shared
 // Going to have to mess around with this one once we actually get some data
-function getFilesThatShareTag(caseId, tag) {
-  return new Promise((resolve, reject) => {
-    Tags.query()
-      .select("Tag.file_id", "File.file_id")
-      .where("tag", "=", "tag")
-      .join("File.file_id", "=", "Tag.file_id")
-      .then(files => {
-        resolve(files);
-      });
-  });
+
+function getFilesThatShareTag(caseId, tagger) {
+  return File.query()
+    .select(
+      "Files.file_name",
+      "Files.file_d3",
+      "Files.file_description",
+      "tag_d3",
+      "Files.case_id",
+      "tag"
+    )
+    .from("Tags")
+    .join("Files")
+    .groupBy("file_d3")
+    .where("tag", "=", tagger)
+    .andWhere("Files.case_id", "=", caseId)
+    .then(response => {
+      return response;
+    });
 }
+
+function getAllTagsThatShareFile(fileId) {
+  return Tag.query()
+    .select(
+      "Files.file_name",
+      "Files.file_d3",
+      "Files.file_description",
+      "tag_d3",
+      "Files.case_id",
+      "tag"
+    )
+    .from("Files")
+    .join("Tags")
+    .where("Files.file_id", "=", fileId)
+    .then(response => {
+      return response;
+    });
+}
+
+// async function test() {
+//   const result = await getAllTagsThatShareFile(1);
+//   console.log(result);
+// }
+
+// test();
 
 // ============================================= Get Multiple
 
@@ -136,17 +170,17 @@ function getMultipleFiles(fileIdArray) {
 // =================================== Delete File (once all tags are created and file data is stored!)
 
 function deleteFile(location) {
-    console.log("DELETING ", location, "!")
-    fs.unlink(location,function(err){
-        if(err) return console.log(err);
-        console.log('file deleted successfully');
-   });
-
+  console.log("DELETING ", location, "!");
+  fs.unlink(location, function(err) {
+    if (err) return console.log(err);
+    console.log("file deleted successfully");
+  });
 }
 
 module.exports = {
   getMultipleFiles,
   getFilesThatShareTag,
+  getAllTagsThatShareFile,
   getTagById,
   getFileById,
   getCaseById,

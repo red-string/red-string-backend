@@ -5,6 +5,7 @@ const app = express();
 const {
   getMultipleFiles,
   getFilesThatShareTag,
+  getAllTagsThatShareFile,
   getTagById,
   getFileById,
   getCaseById,
@@ -53,17 +54,20 @@ app.get("/case/:id", async (req, res) => {
 });
 
 //by file id
-app.get("/case/:case/:id", (req, res) => {
+app.get("/case/:case/:id", async (req, res) => {
   console.log(req.params);
   const caseId = req.params.case;
-  if (req.params) res.send(true);
+  const fileId = req.params.id;
+  const tags = await getAllTagsThatShareFile(fileId);
+  if (req.params) res.send(tags);
   if (!req.params) res.send(false);
 });
 
 //by tag id
-app.get("/case/files/tags/:id", (req, res) => {
+app.get("/:case/files/tags/:id", async (req, res) => {
   console.log(req.params);
-  if (req.params) res.send(true);
+  const filesArray = await getFilesThatShareTag(req.params.case, req.params.id);
+  if (req.params) res.send(filesArray);
   if (!req.params) res.send(false);
 });
 
@@ -97,12 +101,11 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   };
   const fileId = await createFile(fileObject);
   const tags = await LOL(document, fileLocation);
-  console.log('tags created here', tags)
-  createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation))
+  console.log("tags created here", tags);
+  createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation));
 
   if (document) res.send(true);
   if (!document) res.send(false);
-
 });
 
 // ============================================

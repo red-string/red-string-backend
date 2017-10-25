@@ -1,3 +1,12 @@
+```
+                        _______ __       _            
+         ________  ____/ / ___// /______(_)___  ____ _
+        / ___/ _ \/ __  /\__ \/ __/ ___/ / __ \/ __ `/
+       / /  /  __/ /_/ /___/ / /_/ /  / / / / / /_/ / 
+ _____/_/   \___/\__,_//____/\__/_/  /_/_/ /_/\__, /  
+/_____/                                      /____/   
+```
+
 # red-string
 A research and investigational app that uses visual data to describe relationships between documents.
 
