@@ -49,7 +49,6 @@ async function LOL(fileObject, fileLocation, fileType) {
   } else if (fileType === "input") {
     console.log(fileObject);
   }
-
   let nlpArr = await nlptk(text);
   let regExArr = await returnRegExObjs(text, fileId, caseId);
   fileTagsArr = regExArr.concat(nlpArr);
