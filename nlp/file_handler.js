@@ -28,7 +28,6 @@ function getPDFtext(fileObject, fileLocation) {
     );
     pdfParser.on("pdfParser_dataReady", pdfData => {
       const text = pdfParser.getRawTextContent();
-      console.log("TYPE OF ++++++++++ ", typeof text);
       resolve(text);
     });
     pdfParser.loadPDF(fileLocation);
@@ -47,7 +46,8 @@ async function LOL(fileObject, fileLocation, fileType) {
   if (fileType === "docx") {
     text = getDocXText(fileObject, fileLocation);
   } else if (fileType === "pdf") {
-    text = getPDFtext(fileObject, fileLocation);
+    text = await getPDFtext(fileObject, fileLocation);
+    console.log("This is text, I think ", text);
   } else if (fileType === "input") {
     console.log(fileObject);
   }
