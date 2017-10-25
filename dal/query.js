@@ -115,27 +115,49 @@ function getTagById(tagId) {
 
 // ============================================ Get Shared
 // Going to have to mess around with this one once we actually get some data
+
 function getFilesThatShareTag(caseId, tagger) {
   return File.query()
     .select(
-      "file_name",
-      "file_d3",
-      "file_id",
-      "Tags.file_id",
-      "Tags.tag",
-      "Tags.tag_d3"
+      "Files.file_name",
+      "Files.file_d3",
+      "Files.file_description",
+      "tag_d3",
+      "Files.case_id",
+      "tag"
     )
-    .where("Tags.tag", "=", tagger)
-    .andWhere("file_id", "!=", "file_id")
-    .join("file_id", "Tags.file_id")
+    .from("Tags")
+    .join("Files")
+    .groupBy("file_d3")
+    .where("tag", "=", tagger)
+    .andWhere("Files.case_id", "=", caseId)
     .then(response => {
       return response;
     });
 }
-async function test() {
-  const theStuff = await getFilesThatShareTag(1, "Australia");
-  console.log(theStuff);
+
+function getAllTagsThatShareFile(fileId) {
+  return Tag.query()
+    .select(
+      "Files.file_name",
+      "Files.file_d3",
+      "Files.file_description",
+      "tag_d3",
+      "Files.case_id",
+      "tag"
+    )
+    .from("Files")
+    .join("Tags")
+    .where("Files.file_id", "=", fileId)
+    .then(response => {
+      return response;
+    });
 }
+
+// async function test() {
+//   const result = await getAllTagsThatShareFile(1);
+//   console.log(result);
+// }
 
 // test();
 
@@ -158,6 +180,7 @@ function deleteFile(location) {
 module.exports = {
   getMultipleFiles,
   getFilesThatShareTag,
+  getAllTagsThatShareFile,
   getTagById,
   getFileById,
   getCaseById,
