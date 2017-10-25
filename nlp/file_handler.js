@@ -27,7 +27,7 @@ function getPDFtext(fileObject, fileLocation) {
   );
   pdfParser.on("pdfParser_dataReady", pdfData => {
     const text = pdfParser.getRawTextContent();
-    console.log(text);
+    console.log(text.toString());
     return text.toString();
   });
 
@@ -41,8 +41,6 @@ function getPDFtext(fileObject, fileLocation) {
 
 //function to get tags from uploaded text file
 async function LOL(fileObject, fileLocation, fileType) {
-  console.log('this is the file type I am looking at in the LOL', fileType)
-  console.log('...and this is the location and file object', fileLocation, fileObject)
   let fileTagsArr = [];
   let text;
   if (fileType === "docx") {
