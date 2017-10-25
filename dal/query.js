@@ -136,12 +136,30 @@ function getFilesThatShareTag(caseId, tagger) {
     });
 }
 
-async function test() {
-  const result = await getFilesThatShareTag(1, "Mr. Mark Twain");
-  console.log(result);
+function getAllTagsThatShareFile(fileId) {
+  return Tag.query()
+    .select(
+      "Files.file_name",
+      "Files.file_d3",
+      "Files.file_description",
+      "tag_d3",
+      "Files.case_id",
+      "tag"
+    )
+    .from("Files")
+    .join("Tags")
+    .where("Files.file_id", "=", fileId)
+    .then(response => {
+      return response;
+    });
 }
 
-test();
+// async function test() {
+//   const result = await getAllTagsThatShareFile(1);
+//   console.log(result);
+// }
+
+// test();
 
 // ============================================= Get Multiple
 
@@ -162,6 +180,7 @@ function deleteFile(location) {
 module.exports = {
   getMultipleFiles,
   getFilesThatShareTag,
+  getAllTagsThatShareFile,
   getTagById,
   getFileById,
   getCaseById,

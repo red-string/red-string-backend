@@ -5,6 +5,7 @@ const app = express();
 const {
   getMultipleFiles,
   getFilesThatShareTag,
+  getAllTagsThatShareFile,
   getTagById,
   getFileById,
   getCaseById,
@@ -53,10 +54,12 @@ app.get("/case/:id", async (req, res) => {
 });
 
 //by file id
-app.get("/case/:case/:id", (req, res) => {
+app.get("/case/:case/:id", async (req, res) => {
   console.log(req.params);
   const caseId = req.params.case;
-  if (req.params) res.send(true);
+  const fileId = req.params.id;
+  const tags = await getAllTagsThatShareFile(fileId);
+  if (req.params) res.send(tags);
   if (!req.params) res.send(false);
 });
 

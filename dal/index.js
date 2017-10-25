@@ -1,5 +1,6 @@
 const {
   getMultipleFiles,
+  getAllTagsThatShareFile,
   getFilesThatShareTag,
   getTagById,
   getFileById,
@@ -19,6 +20,7 @@ const { createTags, createFile, createCase, createRoute } = require("./store");
 module.exports = {
   getMultipleFiles,
   getFilesThatShareTag,
+  getAllTagsThatShareFile,
   getTagById,
   getFileById,
   getCaseById,
