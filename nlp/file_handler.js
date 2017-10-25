@@ -28,9 +28,10 @@ function getPDFtext(fileObject, fileLocation) {
   pdfParser.on("pdfParser_dataReady", pdfData => {
     const text = pdfParser.getRawTextContent();
     console.log(text);
+    return text.toString();
   });
 
-  pdfParser.loadPDF(__dirname + "/test.pdf");
+  pdfParser.loadPDF(fileLocation);
 }
 //
 // //modules for Python shell NLP API processing
@@ -40,6 +41,8 @@ function getPDFtext(fileObject, fileLocation) {
 
 //function to get tags from uploaded text file
 async function LOL(fileObject, fileLocation, fileType) {
+  console.log('this is the file type I am looking at in the LOL', fileType)
+  console.log('...and this is the location and file object', fileLocation, fileObject)
   let fileTagsArr = [];
   let text;
   if (fileType === "docx") {
