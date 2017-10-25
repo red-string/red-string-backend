@@ -20,18 +20,19 @@ function getDocXText(fileObject, fileLocation) {
 }
 
 function getPDFtext(fileObject, fileLocation) {
-  let pdfParser = new PDFParser(this, 1);
+  return new Promise((resolve, reject) => {
+    let pdfParser = new PDFParser(this, 1);
 
-  pdfParser.on("pdfParser_dataError", errData =>
-    console.error(errData.parserError)
-  );
-  pdfParser.on("pdfParser_dataReady", pdfData => {
-    const text = pdfParser.getRawTextContent();
-    console.log(text.toString());
-    return text.toString();
+    pdfParser.on("pdfParser_dataError", errData =>
+      console.error(errData.parserError)
+    );
+    pdfParser.on("pdfParser_dataReady", pdfData => {
+      const text = pdfParser.getRawTextContent();
+      console.log("TYPE OF ++++++++++ ", typeof text);
+      resolve(text);
+    });
+    pdfParser.loadPDF(fileLocation);
   });
-
-  pdfParser.loadPDF(fileLocation);
 }
 //
 // //modules for Python shell NLP API processing
@@ -51,7 +52,7 @@ async function LOL(fileObject, fileLocation, fileType) {
     console.log(fileObject);
   }
   let nlpArr = await nlptk(text);
-  let regExArr = await returnRegExObjs(text, fileId, caseId);
+  let regExArr = await returnRegExObjs(text);
   fileTagsArr = regExArr.concat(nlpArr);
   console.log("tags arr", fileTagsArr);
   return fileTagsArr;

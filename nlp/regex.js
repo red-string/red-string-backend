@@ -27,24 +27,22 @@ function returnRegExTags(input) {
 }
 
 //function to create tag objects out of returned tags
-function returnTagObjs(tagArr, fileId, caseId) {
+function returnTagObjs(tagArr) {
   let tagObjArr = [];
   for (i in tagArr) {
     let tag = tagArr[i];
     let newTagObj = {
-      tag: tag,
-      case_id: caseId,
-      file_id: fileId
+      tag: tag
     };
     tagObjArr.push(newTagObj);
   }
   return tagObjArr;
 }
 
-function returnRegExObjs(input, fileId, caseId) {
+function returnRegExObjs(input) {
   return new Promise((resolve, reject) => {
     let tagArr = returnRegExTags(input);
-    resolve(returnTagObjs(tagArr, fileId, caseId));
+    resolve(returnTagObjs(tagArr));
   });
 }
 

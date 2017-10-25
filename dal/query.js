@@ -159,7 +159,7 @@ async function test() {
   const result = await getAllTagsThatShareFile(1);
 }
 
-test();
+// test();
 
 // ============================================= Get Multiple
 
