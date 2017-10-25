@@ -52,7 +52,6 @@ async function LOL(fileObject, fileLocation, fileType) {
   const nlpArr = await nlptk(text);
   const regExArr = await returnRegExObjs(text);
   const fileTagsArr = regExArr.concat(nlpArr);
-  console.log("tags arr", fileTagsArr);
   return fileTagsArr;
 }
 
