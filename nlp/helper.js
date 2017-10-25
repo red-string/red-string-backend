@@ -33,7 +33,6 @@ function nlptk(text) {
     py.stdout.on("end", function() {
       // console.log("Data! ", textArr);
       resolve((filteredArr = getUniqueTags(taggedArr)));
-      console.log("is this where the filtered tags are?", filteredArr);
     });
     py.stderr.on("data", data => {
       console.log(`stderr: ${data}`);
