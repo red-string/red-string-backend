@@ -20,18 +20,18 @@ function getDocXText(fileObject, fileLocation) {
 }
 
 function getPDFtext(fileObject, fileLocation) {
-  let pdfParser = new PDFParser(this, 1);
+  return new Promise((resolve, reject) => {
+    let pdfParser = new PDFParser(this, 1);
 
-  pdfParser.on("pdfParser_dataError", errData =>
-    console.error(errData.parserError)
-  );
-  pdfParser.on("pdfParser_dataReady", pdfData => {
-    const text = pdfParser.getRawTextContent();
-    console.log(text);
-    return text.toString();
+    pdfParser.on("pdfParser_dataError", errData =>
+      console.error(errData.parserError)
+    );
+    pdfParser.on("pdfParser_dataReady", pdfData => {
+      const text = pdfParser.getRawTextContent();
+      resolve(text);
+    });
+    pdfParser.loadPDF(fileLocation);
   });
-
-  pdfParser.loadPDF(fileLocation);
 }
 //
 // //modules for Python shell NLP API processing
@@ -41,19 +41,18 @@ function getPDFtext(fileObject, fileLocation) {
 
 //function to get tags from uploaded text file
 async function LOL(fileObject, fileLocation, fileType) {
-  console.log('this is the file type I am looking at in the LOL', fileType)
-  console.log('...and this is the location and file object', fileLocation, fileObject)
   let fileTagsArr = [];
   let text;
   if (fileType === "docx") {
     text = getDocXText(fileObject, fileLocation);
   } else if (fileType === "pdf") {
-    text = getPDFtext(fileObject, fileLocation);
+    text = await getPDFtext(fileObject, fileLocation);
+    console.log("This is text, I think ", text);
   } else if (fileType === "input") {
     console.log(fileObject);
   }
   let nlpArr = await nlptk(text);
-  let regExArr = await returnRegExObjs(text, fileId, caseId);
+  let regExArr = await returnRegExObjs(text);
   fileTagsArr = regExArr.concat(nlpArr);
   console.log("tags arr", fileTagsArr);
   return fileTagsArr;
