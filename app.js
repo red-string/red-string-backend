@@ -66,6 +66,20 @@ app.get("/case/:case/:id", async (req, res) => {
   const caseId = req.params.case;
   const fileId = req.params.id;
   const tags = await getAllTagsThatShareFile(fileId);
+  const fileInfo = {
+    file_name: tags[0].file_name,
+    file_d3: tags[0].file_d3,
+    file_description: tags[0].file_description,
+    tags: []
+  };
+  tags.forEach((tag, ind) => {
+    const tagInfo = {
+      tag: tag.tag,
+      tag_d3: tag.tag_d3
+    };
+    fileInfo.tags[ind] = tagInfo;
+  });
+  console.log(fileInfo);
   if (req.params) res.send(tags);
   if (!req.params) res.send(false);
 });

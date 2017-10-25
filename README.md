@@ -90,14 +90,15 @@ The second set of tags is created through a Python child process that uses the N
   ```
 
 
-  ###React and D3
+  ### React and D3
 
 
 ## Who made red-string?
 
 ### About us
 
-red-string was developed in September/October 2017 by Stephen Boynton, Nick Nauert and Ryan Kelley as a final project at the Iron Yard, a 3-month full-stack programming course.
+red-string was developed in September/October 2017 by Stephen Boynton, Nick Nauert and Ryan Kelley as a final project at the Iron Yard, a 3-month full-stack programming course, and presented on Demo Day at the Harbor Entrepreneur Center on November 2, 2017.
+
 
 ### Contact us
   Stephen Boynton: www.stephenboynton.com
