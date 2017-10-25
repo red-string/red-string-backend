@@ -2,6 +2,7 @@ const JSZip = require("jszip");
 const Docxtemplater = require("docxtemplater");
 const fs = require("fs");
 const path = require("path");
+const PDFParser = require("pdf2json");
 const { returnRegExTags, returnRegExObjs, returnTagObjs } = require("./regex");
 // const { pyNLP, endPynlp } = require("./pypractice");
 const { maxSizeFileHandler, nlptk } = require("./helper");
@@ -17,6 +18,20 @@ function getDocXText(fileObject, fileLocation) {
   const text = doc.getFullText();
   return text;
 }
+
+function getPDFtext(fileObject, fileLocation) {
+  let pdfParser = new PDFParser(this, 1);
+
+  pdfParser.on("pdfParser_dataError", errData =>
+    console.error(errData.parserError)
+  );
+  pdfParser.on("pdfParser_dataReady", pdfData => {
+    const text = pdfParser.getRawTextContent();
+    console.log(text);
+  });
+
+  pdfParser.loadPDF(__dirname + "/test.pdf");
+}
 //
 // //modules for Python shell NLP API processing
 // const PythonShell = require('python-shell');
@@ -24,9 +39,17 @@ function getDocXText(fileObject, fileLocation) {
 // const pyshell = new PythonShell('pypractice.py', options);
 
 //function to get tags from uploaded text file
-async function LOL(fileObject, fileLocation, fileId, caseId) {
+async function LOL(fileObject, fileLocation, fileType) {
   let fileTagsArr = [];
-  const text = getDocXText(fileObject, fileLocation);
+  let text;
+  if (fileType === "docx") {
+    text = getDocXText(fileObject, fileLocation);
+  } else if (fileType === "pdf") {
+    text = getPDFtext(fileObject, fileLocation);
+  } else if (fileType === "input") {
+    console.log(fileObject);
+  }
+
   let nlpArr = await nlptk(text);
   let regExArr = await returnRegExObjs(text, fileId, caseId);
   fileTagsArr = regExArr.concat(nlpArr);
