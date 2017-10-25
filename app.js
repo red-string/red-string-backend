@@ -53,6 +53,13 @@ app.get("/case/:id", async (req, res) => {
   if (!req.params) res.send(false);
 });
 
+app.get("/file/:id", async (req, res) => {
+  let file_id = req.params.id
+  let file = await getFileById(file_id);
+  if (req.params) res.send(file);
+  if (!req.params) res.send(false);
+});
+
 //by file id
 app.get("/case/:case/:id", async (req, res) => {
   console.log(req.params);
