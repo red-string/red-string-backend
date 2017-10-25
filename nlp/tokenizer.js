@@ -1,23 +1,23 @@
-const _ = require('lodash');
-const {returnTagObjs} = require('./regex')
-
-let cleanedStr = ""
-let filteredArr = []
+const _ = require("lodash");
+const { returnTagObjs } = require("./regex");
 const tagEndFilter = /\/\w{2,3}\)?/gi;
 const tagBeginFilter = /\(\w*/gi;
 
-function cleanTagArr (arr) {
-  arr.forEach(function (item) {
-    cleanedStr = item.replace(tagEndFilter, "")
+function cleanTagArr(arr) {
+  let filteredArr = [];
+  let cleanedStr = "";
+
+  arr.forEach(function(item) {
+    cleanedStr = item.replace(tagEndFilter, "");
     cleanedStr = cleanedStr.replace(tagBeginFilter, "");
     cleanedStr = _.trim(cleanedStr);
     filteredArr.push(cleanedStr);
-  })
+  });
   return filteredArr;
 }
 
-function getUniqueTags (arr) {
-  let tagsArr = cleanTagArr(arr)
+function getUniqueTags(arr) {
+  let tagsArr = cleanTagArr(arr);
   let uniqueTagsArr = _.uniq(tagsArr);
   return returnTagObjs(uniqueTagsArr);
 }
@@ -27,9 +27,7 @@ function getUniqueTags (arr) {
 // console.log(tagCount)
 // }
 
-
-
-module.exports = {getUniqueTags}
+module.exports = { getUniqueTags };
 
 // //create array of objects containing proper nouns and their frequency in the document
 // function getProperNounFrequency () {
