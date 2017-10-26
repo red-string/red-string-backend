@@ -48,6 +48,7 @@ async function LOL(fileObject, fileLocation, fileType) {
     text = await getPDFtext(fileObject, fileLocation);
   } else if (fileType === "input") {
     console.log(fileObject);
+    text = fileObject.file_text;
   }
   const nlpArr = await nlptk(text);
   const regExArr = await returnRegExObjs(text);
