@@ -73,7 +73,7 @@ app.get("/case/:case/:id", async (req, res) => {
     fileInfo.tags[ind] = tagInfo;
   });
   console.log(fileInfo);
-  if (req.params) res.send(tags);
+  if (req.params) res.send(fileInfo);
   if (!req.params) res.send(false);
 });
 
