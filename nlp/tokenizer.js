@@ -1,6 +1,9 @@
 const _ = require('lodash');
 const {returnTagObjs} = require('./regex')
 
+const testArr = ["a", "b", "a", "b", "c", "a", "d", "r", "c", "c", "s", "u"]
+
+
 let cleanedStr = ""
 let filteredArr = []
 const tagEndFilter = /\/\w{2,3}\)?/gi;
@@ -22,10 +25,29 @@ function getUniqueTags (arr) {
   return returnTagObjs(uniqueTagsArr);
 }
 
-// function getTagFrequency (arr) {
-//   let tagCount = _.countBy(arr)
-// console.log(tagCount)
-// }
+function getTagFrequencyArr (arr) {
+  const tagTotal = arr.length;
+  let tagTally = _.countBy(arr);
+  // let tagFreqObj = {};
+  let tagFrequencyArr = [];
+  for (key in tagTally) {
+    tagFrequencyArr.push({
+      tag: key,
+      frequency: tagTally[key]
+    })
+  }
+  return tagFrequencyArr;
+}
+
+function getTagFreq (tag, arr) {
+  let allFreqs = getTagFrequencyArr(arr);
+  let tagFreq = _.find(allFreqs, {'tag': tag})
+  return tagFreq.frequency;
+}
+
+console.log(typeof getTagFreq('b', testArr))
+
+
 
 
 
