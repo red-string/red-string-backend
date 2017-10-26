@@ -53,13 +53,34 @@ app.get("/case/:id", async (req, res) => {
   if (!req.params) res.send(false);
 });
 
+app.get("/file/:id", async (req, res) => {
+  let file_id = req.params.id
+  let file = await getFileById(file_id);
+  if (req.params) res.send(file);
+  if (!req.params) res.send(false);
+});
+
 //by file id
 app.get("/case/:case/:id", async (req, res) => {
   console.log(req.params);
   const caseId = req.params.case;
   const fileId = req.params.id;
   const tags = await getAllTagsThatShareFile(fileId);
-  if (req.params) res.send(tags);
+  const fileInfo = {
+    file_name: tags[0].file_name,
+    file_d3: tags[0].file_d3,
+    file_description: tags[0].file_description,
+    tags: []
+  };
+  tags.forEach((tag, ind) => {
+    const tagInfo = {
+      tag: tag.tag,
+      tag_d3: tag.tag_d3
+    };
+    fileInfo.tags[ind] = tagInfo;
+  });
+  console.log(fileInfo);
+  if (req.params) res.send(fileInfo);
   if (!req.params) res.send(false);
 });
 
@@ -96,11 +117,18 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   const thisCase = req.params.case;
   const docType = req.body.file_type;
   const fileLocation = __dirname + "/" + document.path;
-  const fileObject = {
-    file_name: req.body.name,
-    file_description: req.body.description,
-    case_id: thisCase
-  };
+  let fileObject = {};
+  if ( req.body.file_text !== "") {
+      fileObject.file_name = req.body.name;
+      fileObject.file_description = req.body.description;
+      fileObject.case_id = thisCase;
+      fileObject.file_text = req.body.file_text;
+  } else {
+      fileObject.file_name = req.body.name;
+      fileObject.file_description = req.body.description;
+      fileObject.case_id = thisCase;
+  }
+  
   const fileId = await createFile(fileObject);
   const tags = await LOL(document, fileLocation, docType);
   createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation));

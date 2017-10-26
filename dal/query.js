@@ -146,7 +146,7 @@ function getAllTagsThatShareFile(fileId) {
       "Files.case_id",
       "tag"
     )
-    .from("Files ")
+    .from("Files")
     .join("Tags")
     .where("Files.file_id", "=", fileId)
     .andWhere("Tags.file_id", "=", fileId)
@@ -156,10 +156,11 @@ function getAllTagsThatShareFile(fileId) {
 }
 
 async function test() {
-  const result = await getAllTagsThatShareFile(1);
+  const result = await getAllTagsThatShareFile(3);
+  console.log(result);
 }
 
-// test();
+test();
 
 // ============================================= Get Multiple
 
