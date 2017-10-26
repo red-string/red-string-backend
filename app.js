@@ -68,7 +68,8 @@ app.get("/case/:case/:id", async (req, res) => {
   tags.forEach((tag, ind) => {
     const tagInfo = {
       tag: tag.tag,
-      tag_d3: tag.tag_d3
+      tag_d3: tag.tag_d3,
+      file_d3: fileInfo.file_d3
     };
     fileInfo.tags[ind] = tagInfo;
   });
