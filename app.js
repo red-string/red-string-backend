@@ -54,7 +54,7 @@ app.get("/case/:id", async (req, res) => {
 });
 
 app.get("/file/:id", async (req, res) => {
-  let file_id = req.params.id
+  let file_id = req.params.id;
   let file = await getFileById(file_id);
   if (req.params) res.send(file);
   if (!req.params) res.send(false);
@@ -77,9 +77,9 @@ app.get("/case/:case/:id", async (req, res) => {
       name: tag.tag,
       d3: tag.tag_d3,
       desciption: "",
-      parent: fileInfo.file_d3
+      parent: fileInfo.d3
     };
-    fileInfo.tags[ind] = tagInfo;
+    fileInfo.children[ind] = tagInfo;
   });
   console.log(fileInfo);
   if (req.params) res.send(fileInfo);
@@ -141,15 +141,15 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   const docType = req.body.file_type;
   const fileLocation = __dirname + "/" + document.path;
   let fileObject = {};
-  if ( req.body.file_text !== "") {
-      fileObject.file_name = req.body.name;
-      fileObject.file_description = req.body.description;
-      fileObject.case_id = thisCase;
-      fileObject.file_text = req.body.file_text;
+  if (req.body.file_text !== "") {
+    fileObject.file_name = req.body.name;
+    fileObject.file_description = req.body.description;
+    fileObject.case_id = thisCase;
+    fileObject.file_text = req.body.file_text;
   } else {
-      fileObject.file_name = req.body.name;
-      fileObject.file_description = req.body.description;
-      fileObject.case_id = thisCase;
+    fileObject.file_name = req.body.name;
+    fileObject.file_description = req.body.description;
+    fileObject.case_id = thisCase;
   }
 
   const fileId = await createFile(fileObject);
