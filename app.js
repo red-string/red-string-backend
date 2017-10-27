@@ -153,7 +153,10 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   }
 
   const fileId = await createFile(fileObject);
+<<<<<<< HEAD
   console.log("hello, this is the doctype", docType);
+=======
+>>>>>>> d4126c3c7d67ee9ff521875ec8b1c4cc7696648d
   const tags = await LOL(document, fileLocation, docType);
   createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation));
 
