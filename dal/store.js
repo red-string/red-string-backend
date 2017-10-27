@@ -62,7 +62,8 @@ async function createTags(tagObjectArray, fileId, caseId) {
         tag: tag.tag,
         tag_d3: "t" + startNum,
         case_id: caseId,
-        file_id: fileId
+        file_id: fileId,
+        tag_frequency: tag.frequency
       })
       .then(response => {
         return response;

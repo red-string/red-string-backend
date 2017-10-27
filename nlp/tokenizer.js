@@ -1,3 +1,4 @@
+const testArr = ["a", "b", "a", "b", "c", "a", "d", "r", "c", "c", "s", "u"]
 const _ = require("lodash");
 const { returnTagObjs } = require("./regex");
 const tagEndFilter = /\/\w{2,3}\)?/gi;
@@ -18,16 +19,35 @@ function cleanTagArr(arr) {
 
 function getUniqueTags(arr) {
   let tagsArr = cleanTagArr(arr);
+  let freqArr = getTagFrequencyArr(tagsArr);
   let uniqueTagsArr = _.uniq(tagsArr);
-  return returnTagObjs(uniqueTagsArr);
+  return freqArr;
 }
 
-// function getTagFrequency (arr) {
-//   let tagCount = _.countBy(arr)
-// console.log(tagCount)
-// }
+function getTagFrequencyArr (arr) {
+  const tagTotal = arr.length;
+  let tagTally = _.countBy(arr);
+  // let tagFreqObj = {};
+  let tagFrequencyArr = [];
+  for (key in tagTally) {
+    let freq = tagTally[key]/tagTotal;
+    console.log(freq)
+    tagFrequencyArr.push({
+      tag: key,
+      frequency: freq
+    })
+  }
+  return tagFrequencyArr;
+}
 
-module.exports = { getUniqueTags };
+function getTagFreq (tag, arr) {
+  let allFreqs = getTagFrequencyArr(arr);
+  let tagFreq = _.find(allFreqs, {'tag': tag})
+  return tagFreq.frequency;
+}
+
+
+module.exports = { getUniqueTags, getTagFreq };
 
 // //create array of objects containing proper nouns and their frequency in the document
 // function getProperNounFrequency () {

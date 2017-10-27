@@ -44,6 +44,7 @@ async function LOL(fileObject, fileLocation, fileType) {
   let text;
   if (fileType === "docx") {
     text = getDocXText(fileObject, fileLocation);
+    console.log(text)
   } else if (fileType === "pdf") {
     text = await getPDFtext(fileObject, fileLocation);
   } else if (fileType === "input") {
@@ -53,6 +54,7 @@ async function LOL(fileObject, fileLocation, fileType) {
   const nlpArr = await nlptk(text);
   const regExArr = await returnRegExObjs(text);
   const fileTagsArr = regExArr.concat(nlpArr);
+  console.log('woo, this is the file tags array, I think this is where I need to put the frequency function', fileTagsArr)
   return fileTagsArr;
 }
 
