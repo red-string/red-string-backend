@@ -67,16 +67,17 @@ app.get("/case/:case/:id", async (req, res) => {
   const fileId = req.params.id;
   const tags = await getAllTagsThatShareFile(fileId);
   const fileInfo = {
-    file_name: tags[0].file_name,
-    file_d3: tags[0].file_d3,
-    file_description: tags[0].file_description,
-    tags: []
+    name: tags[0].file_name,
+    d3: tags[0].file_d3,
+    desciption: tags[0].file_description,
+    children: []
   };
   tags.forEach((tag, ind) => {
     const tagInfo = {
-      tag: tag.tag,
-      tag_d3: tag.tag_d3,
-      file_d3: fileInfo.file_d3
+      name: tag.tag,
+      d3: tag.tag_d3,
+      desciption: "",
+      parent: fileInfo.file_d3
     };
     fileInfo.tags[ind] = tagInfo;
   });
@@ -87,9 +88,30 @@ app.get("/case/:case/:id", async (req, res) => {
 
 //by tag id
 app.get("/:case/files/tags/:id", async (req, res) => {
-  console.log(req.params);
-  const filesArray = await getFilesThatShareTag(req.params.case, req.params.id);
-  if (req.params) res.send(filesArray);
+  const tagName = await getTagById(req.params.id);
+  console.log(tagName);
+  const filesArray = await getFilesThatShareTag(
+    req.params.case,
+    tagName[0].tag
+  );
+  console.log(filesArray);
+  const returnData = {
+    name: filesArray.tag,
+    d3: "t" + req.params.id,
+    description: "",
+    children: []
+  };
+  filesArray.forEach((file, ind) => {
+    const fileData = {
+      name: file.file_name,
+      d3: file.file_d3,
+      description: file.file_description,
+      parent: "t" + req.params.id
+    };
+    returnData.children[ind] = fileData;
+  });
+  console.log(returnData);
+  if (req.params) res.send(returnData);
   if (!req.params) res.send(false);
 });
 

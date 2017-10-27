@@ -104,13 +104,12 @@ function getFileById(fileId) {
 }
 
 function getTagById(tagId) {
-  return new Promise((resolve, reject) => {
-    Tag.query()
-      .where("tag _id", "=", tagId)
-      .then(tag => {
-        resolve(tag);
-      });
-  });
+  return Tag.query()
+    .where("tag_id", "=", tagId)
+    .then(tag => {
+      console.log(tag);
+      return tag;
+    });
 }
 
 // ============================================ Get Shared
@@ -122,7 +121,7 @@ function getFilesThatShareTag(caseId, tagger) {
       "Files.file_name",
       "Files.file_d3",
       "Files.file_description",
-      "tag_d3",
+      "Tags.tag_d3",
       "Files.case_id",
       "tag"
     )
