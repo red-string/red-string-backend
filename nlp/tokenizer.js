@@ -21,9 +21,7 @@ function getUniqueTags(arr) {
   let tagsArr = cleanTagArr(arr);
   let freqArr = getTagFrequencyArr(tagsArr);
   let uniqueTagsArr = _.uniq(tagsArr);
-  console.log('is this it? did I do the thing??', freqArr)
-  console.log('this should look basically the same except not as nice', returnTagObjs(uniqueTagsArr))
-  return returnTagObjs(uniqueTagsArr);
+  return freqArr;
 }
 
 function getTagFrequencyArr (arr) {
@@ -32,9 +30,11 @@ function getTagFrequencyArr (arr) {
   // let tagFreqObj = {};
   let tagFrequencyArr = [];
   for (key in tagTally) {
+    let freq = tagTally[key]/tagTotal;
+    console.log(freq)
     tagFrequencyArr.push({
       tag: key,
-      frequency: tagTally[key]
+      frequency: freq
     })
   }
   return tagFrequencyArr;
