@@ -26,20 +26,20 @@ function getUniqueTags(arr) {
 }
 
 //get an array of all tags and their frequencies
-// function getTagFrequencyArr (arr) {
-//   const tagTotal = arr.length;
-//   let tagTally = _.countBy(arr);
-//   // let tagFreqObj = {};
-//   let tagFrequencyArr = [];
-//   for (key in tagTally) {
-//     let freq = tagTally[key]/tagTotal;
-//     tagFrequencyArr.push({
-//       tag: key,
-//       frequency: freq
-//     })
-//   }
-//   return tagFrequencyArr;
-// }
+function getTagFrequencyArr (arr) {
+  const tagTotal = arr.length;
+  let tagTally = _.countBy(arr);
+  // let tagFreqObj = {};
+  let tagFrequencyArr = [];
+  for (key in tagTally) {
+    let freq = tagTally[key]/tagTotal;
+    tagFrequencyArr.push({
+      tag: key,
+      frequency: freq
+    })
+  }
+  return tagFrequencyArr;
+}
 
 //get frequency for one tag
 function getTagFreq (tag, arr) {
@@ -49,7 +49,7 @@ function getTagFreq (tag, arr) {
 }
 
 
-module.exports = { getUniqueTags, getTagFreq };
+module.exports = { getUniqueTags, getTagFrequencyArr, getTagFreq };
 
 // //create array of objects containing proper nouns and their frequency in the document
 // function getProperNounFrequency () {
