@@ -19,6 +19,7 @@ function cleanTagArr(arr) {
 
 function getUniqueTags(arr) {
   let tagsArr = cleanTagArr(arr);
+  //run function to get tag frequency from this array
   let uniqueTagsArr = _.uniq(tagsArr);
   return returnTagObjs(uniqueTagsArr);
 }
@@ -44,8 +45,7 @@ function getTagFreq (tag, arr) {
 }
 
 
-
-module.exports = { getUniqueTags };
+module.exports = { getUniqueTags, getTagFreq };
 
 // //create array of objects containing proper nouns and their frequency in the document
 // function getProperNounFrequency () {
