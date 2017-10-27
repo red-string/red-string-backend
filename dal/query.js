@@ -120,6 +120,7 @@ function getFilesThatShareTag(caseId, tagger) {
     .select(
       "Files.file_name",
       "Files.file_d3",
+      "Files.file_id",
       "Files.file_description",
       "Tags.tag_d3",
       "Files.case_id",
@@ -142,6 +143,8 @@ function getAllTagsThatShareFile(fileId) {
       "Files.file_d3",
       "Files.file_description",
       "tag_d3",
+      "tag_id",
+      "Files.file_id",
       "Files.case_id",
       "tag"
     )

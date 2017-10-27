@@ -62,7 +62,6 @@ app.get("/file/:id", async (req, res) => {
 
 //by file id
 app.get("/case/:case/:id", async (req, res) => {
-  console.log(req.params);
   const caseId = req.params.case;
   const fileId = req.params.id;
   const tags = await getAllTagsThatShareFile(fileId);
@@ -75,13 +74,13 @@ app.get("/case/:case/:id", async (req, res) => {
   tags.forEach((tag, ind) => {
     const tagInfo = {
       name: tag.tag,
+      id: tag.tag_id,
       d3: tag.tag_d3,
       desciption: "",
       parent: fileInfo.d3
     };
     fileInfo.children[ind] = tagInfo;
   });
-  console.log(fileInfo);
   if (req.params) res.send(fileInfo);
   if (!req.params) res.send(false);
 });
@@ -89,12 +88,10 @@ app.get("/case/:case/:id", async (req, res) => {
 //by tag id
 app.get("/:case/files/tags/:id", async (req, res) => {
   const tagName = await getTagById(req.params.id);
-  console.log(tagName);
   const filesArray = await getFilesThatShareTag(
     req.params.case,
     tagName[0].tag
   );
-  console.log(filesArray);
   const returnData = {
     name: filesArray.tag,
     d3: "t" + req.params.id,
@@ -105,19 +102,19 @@ app.get("/:case/files/tags/:id", async (req, res) => {
     const fileData = {
       name: file.file_name,
       d3: file.file_d3,
+      id: file.file_id,
       description: file.file_description,
       parent: "t" + req.params.id
     };
     returnData.children[ind] = fileData;
   });
-  console.log(returnData);
+  console.log("Return data", returnData);
   if (req.params) res.send(returnData);
   if (!req.params) res.send(false);
 });
 
 //all tags from case
 app.get("/:case/files/tags", async (req, res) => {
-  console.log(req.params);
   let tags = await getAllTagsFromCase(req.params.case);
   if (req.params) res.send(tags);
   if (!req.params) res.send(false);
@@ -128,14 +125,12 @@ app.get("/:case/files/tags", async (req, res) => {
 //============
 
 app.post("/case/new", (req, res) => {
-  console.log(req.body);
   const newCase = createCase(req.body);
   if (newCase) res.send(true);
   if (!newCase) res.send(false);
 });
 
 app.post("/case/:case/new", upload.single("file"), async (req, res) => {
-  console.log("request body", req.body);
   const document = req.file;
   const thisCase = req.params.case;
   const docType = req.body.file_type;
