@@ -4,8 +4,8 @@ const webRegEx = /([(www.)?a-zA-Z0-9@:%._\+~#=]{2,256})\.[a-z]{2,6}\b([-a-zA-Z0-
 const stateRegEx1 = /\b((A[AEKLPRSZ])|(C[AOT])|(D[EC])|(F[LM])|(G[AU])|(HI)|(I[ADLN])|(K[SY])|(L[A])|(M[ADEINOST]))[\s,.]?\b/g;
 const stateRegEx2 = /\b((N[CDEHJMVY])|(O[HKR])|(P[AR])|(RI)|(S[CD])|(T[NX])|(U[T])|(V[AT])|(W[AIVY]))[\s,.]?\b/g;
 const emailRegEx = /\b[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,6}\b/g;
-// const zipRegEx = ;
-// const
+
+const { getTagFrequencyArr } = require("./tokenizer");
 
 //array of regular expressions to iterate over in matching function
 const regExArr = [stateRegEx1, stateRegEx2, emailRegEx, webRegEx, phoneRegEx];
@@ -23,7 +23,7 @@ function returnRegExTags(input) {
       matchArr = [];
     }
   });
-  console.log('this is the tag array from the returnRegExTags function', tagArr)
+  console.log('this is the tag array from the returnRegExTags function', getTagFrequencyArr(tagArr))
   return tagArr;
 }
 
