@@ -42,13 +42,13 @@ function getPDFtext(fileObject, fileLocation) {
 //function to get tags from uploaded text file
 async function LOL(fileObject, fileLocation, fileType) {
   let text;
+  console.log("whee, this is the thing coming back to the lawl", fileObject, fileLocation, fileType)
   if (fileType === "docx") {
     text = getDocXText(fileObject, fileLocation);
-    console.log(text)
   } else if (fileType === "pdf") {
     text = await getPDFtext(fileObject, fileLocation);
   } else if (fileType === "input") {
-    console.log(fileObject);
+    console.log('hi, it is an input', fileType, fileObject.file_text)
     text = fileObject.file_text;
   }
   const nlpArr = await nlptk(text);
