@@ -54,7 +54,6 @@ async function LOL(fileObject, fileLocation, fileType) {
   const nlpArr = await nlptk(text);
   const regExArr = await returnRegExObjs(text);
   const fileTagsArr = regExArr.concat(nlpArr);
-  console.log('woo, this is the file tags array, I think this is where I need to put the frequency function', fileTagsArr)
   return fileTagsArr;
 }
 
