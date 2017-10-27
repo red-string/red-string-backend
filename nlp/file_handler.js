@@ -44,6 +44,7 @@ async function LOL(fileObject, fileLocation, fileType) {
   let text;
   if (fileType === "docx") {
     text = getDocXText(fileObject, fileLocation);
+    console.log(text)
   } else if (fileType === "pdf") {
     text = await getPDFtext(fileObject, fileLocation);
   } else if (fileType === "input") {
