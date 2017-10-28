@@ -138,15 +138,21 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   console.log("request body", req.body);
   const document = req.file;
   const thisCase = req.params.case;
-  const docType = req.body.file_type;
+  let docType;
   let fileLocation;
   let fileObject = {};
+  let newFile;
+  console.log('what is there a document or something', document)
   if (req.body.file_text !== "") {
+    newFile = req.body.file_text;
+    docType = "input"
     fileObject.file_name = req.body.name;
     fileObject.file_description = req.body.description;
     fileObject.case_id = thisCase;
     fileObject.file_text = req.body.file_text;
   } else {
+      newFile = document;
+      docType = req.body.file_type;
       fileObject.file_name = req.body.name;
       fileObject.file_description = req.body.description;
       fileObject.case_id = thisCase;
@@ -154,8 +160,12 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   }
 
   const fileId = await createFile(fileObject);
-  const tags = await LOL(document, fileLocation, docType);
-  createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation));
+  // const tags = await LOL(document, fileLocation, docType);
+  const tags = await LOL(newFile, fileLocation, docType)
+  if (document) {
+    createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation))
+  }
+  else {createTags(tags, fileId.is, thisCase)}
 
   if (document) res.send(true);
   if (!document) res.send(false);
