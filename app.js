@@ -57,10 +57,10 @@ function returnTagObject(tags) {
   return fileInfo;
 }
 
-function returnFileObject(filesArray) {
+function returnFileObject(filesArray, id) {
   const returnData = {
     name: filesArray.tag,
-    d3: "t" + req.params.id,
+    d3: "t" + id,
     description: "",
     children: []
   };
@@ -70,7 +70,7 @@ function returnFileObject(filesArray) {
       d3: file.file_d3,
       id: file.file_id,
       description: file.file_description,
-      parent: "t" + req.params.id
+      parent: "t" + id
     };
     returnData.children[ind] = fileData;
   });
@@ -121,7 +121,7 @@ app.get("/:case/files/tags/:id", async (req, res) => {
     req.params.case,
     tagName[0].tag
   );
-  const returnData = returnFileObject(filesArray);
+  const returnData = returnFileObject(filesArray, req.params.id);
   console.log("Return data", returnData);
   if (req.params) res.send(returnData);
   if (!req.params) res.send(false);
