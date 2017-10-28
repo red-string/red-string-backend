@@ -148,22 +148,34 @@ app.post("/case/new", (req, res) => {
 app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   const document = req.file;
   const thisCase = req.params.case;
-  const docType = req.body.file_type;
-  const fileLocation = __dirname + "/" + document.path;
+  let docType;
+  let fileLocation;
   let fileObject = {};
+  let newFile;
   if (req.body.file_text !== "") {
+    newFile = req.body.file_text;
+    docType = "input"
     fileObject.file_name = req.body.name;
     fileObject.file_description = req.body.description;
     fileObject.case_id = thisCase;
     fileObject.file_text = req.body.file_text;
   } else {
-    fileObject.file_name = req.body.name;
-    fileObject.file_description = req.body.description;
-    fileObject.case_id = thisCase;
+      newFile = document;
+      docType = req.body.file_type;
+      fileObject.file_name = req.body.name;
+      fileObject.file_description = req.body.description;
+      fileObject.case_id = thisCase;
+      fileLocation = __dirname + "/" + document.path;
   }
   const fileId = await createFile(fileObject);
-  const tags = await fileHandler(document, fileLocation, docType);
-  createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation));
+  console.log('this is the doctype being passed back to the lol function: ', docType)
+  // const tags = await LOL(document, fileLocation, docType);
+  const tags = await LOL(newFile, fileLocation, docType)
+  if (document) {
+    createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation))
+  }
+  else {createTags(tags, fileId.is, thisCase)}
+
   if (document) res.send(true);
   if (!document) res.send(false);
 });

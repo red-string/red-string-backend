@@ -23,10 +23,13 @@ function returnRegExTags(input) {
       matchArr = [];
     }
   });
+<<<<<<< HEAD
+=======
   console.log(
     "this is the tag array from the returnRegExTags function",
     getTagFrequencyArr(tagArr)
   );
+>>>>>>> d289eeee5d8652d6dedd8d44553057047d71851d
   return tagArr;
 }
 
