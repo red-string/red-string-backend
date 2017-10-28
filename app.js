@@ -160,6 +160,7 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   }
 
   const fileId = await createFile(fileObject);
+  console.log('this is the doctype being passed back to the lol function: ', docType)
   // const tags = await LOL(document, fileLocation, docType);
   const tags = await LOL(newFile, fileLocation, docType)
   if (document) {
