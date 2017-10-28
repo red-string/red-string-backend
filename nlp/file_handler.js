@@ -4,8 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const PDFParser = require("pdf2json");
 const { returnRegExTags, returnRegExObjs, returnTagObjs } = require("./regex");
-// const { pyNLP, endPynlp } = require("./pypractice");
-const { maxSizeFileHandler, nlptk } = require("./helper");
+const { nlptk } = require("./nlptk");
 
 const _ = require("lodash");
 
@@ -33,18 +32,21 @@ function getPDFtext(fileObject, fileLocation) {
     pdfParser.loadPDF(fileLocation);
   });
 }
-//
-// //modules for Python shell NLP API processing
-// const PythonShell = require('python-shell');
-// const options = {mode: "text", pythonPath: "/usr/bin/python"}
-// const pyshell = new PythonShell('pypractice.py', options);
 
 //function to get tags from uploaded text file
+<<<<<<< HEAD
 async function LOL(fileObject, fileLocation, fileType) {
   console.log('it works in the lol', fileObject, fileLocation, fileType)
   let text;
   if (fileType === "docx") {
     text = getDocXText(fileObject, fileLocation);
+=======
+async function fileHandler(fileObject, fileLocation, fileType) {
+  let text;
+  if (fileType === "docx") {
+    text = getDocXText(fileObject, fileLocation);
+    console.log(text);
+>>>>>>> d289eeee5d8652d6dedd8d44553057047d71851d
   } else if (fileType === "pdf") {
     text = await getPDFtext(fileObject, fileLocation);
   } else if (fileType === "input") {
@@ -56,4 +58,4 @@ async function LOL(fileObject, fileLocation, fileType) {
   return fileTagsArr;
 }
 
-module.exports = { LOL };
+module.exports = { fileHandler };

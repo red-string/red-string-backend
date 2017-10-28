@@ -21,7 +21,7 @@ const {
   createCase,
   deleteFile
 } = require("./dal");
-const { LOL } = require("./nlp/file_handler");
+const { fileHandler } = require("./nlp/file_handler");
 const storage = multer.diskStorage({
   destination: "./dal/temp",
   filename: function(req, file, cb) {
@@ -32,6 +32,50 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(bodyParser.json());
+
+// ============================================
+// Create Return Objects
+//============================================
+
+function returnTagObject(tags) {
+  const fileInfo = {
+    name: tags[0].file_name,
+    d3: tags[0].file_d3,
+    desciption: tags[0].file_description,
+    children: []
+  };
+  tags.forEach((tag, ind) => {
+    const tagInfo = {
+      name: tag.tag,
+      id: tag.tag_id,
+      d3: tag.tag_d3,
+      desciption: "",
+      parent: fileInfo.d3
+    };
+    fileInfo.children[ind] = tagInfo;
+  });
+  return fileInfo;
+}
+
+function returnFileObject(filesArray, id) {
+  const returnData = {
+    name: filesArray.tag,
+    d3: "t" + id,
+    description: "",
+    children: []
+  };
+  filesArray.forEach((file, ind) => {
+    const fileData = {
+      name: file.file_name,
+      d3: file.file_d3,
+      id: file.file_id,
+      description: file.file_description,
+      parent: "t" + id
+    };
+    returnData.children[ind] = fileData;
+  });
+  return returnData;
+}
 
 // ============================================
 // Routes
@@ -60,64 +104,30 @@ app.get("/file/:id", async (req, res) => {
   if (!req.params) res.send(false);
 });
 
-//by file id
+// returns parent FILE and child TAGS
 app.get("/case/:case/:id", async (req, res) => {
-  console.log(req.params);
   const caseId = req.params.case;
   const fileId = req.params.id;
   const tags = await getAllTagsThatShareFile(fileId);
-  const fileInfo = {
-    name: tags[0].file_name,
-    d3: tags[0].file_d3,
-    desciption: tags[0].file_description,
-    children: []
-  };
-  tags.forEach((tag, ind) => {
-    const tagInfo = {
-      name: tag.tag,
-      d3: tag.tag_d3,
-      desciption: "",
-      parent: fileInfo.d3
-    };
-    fileInfo.children[ind] = tagInfo;
-  });
-  console.log(fileInfo);
+  const fileInfo = returnTagObject(tags);
   if (req.params) res.send(fileInfo);
   if (!req.params) res.send(false);
 });
 
-//by tag id
+//returns parent TAG and child FILES
 app.get("/:case/files/tags/:id", async (req, res) => {
   const tagName = await getTagById(req.params.id);
-  console.log(tagName);
   const filesArray = await getFilesThatShareTag(
     req.params.case,
     tagName[0].tag
   );
-  console.log(filesArray);
-  const returnData = {
-    name: filesArray.tag,
-    d3: "t" + req.params.id,
-    description: "",
-    children: []
-  };
-  filesArray.forEach((file, ind) => {
-    const fileData = {
-      name: file.file_name,
-      d3: file.file_d3,
-      description: file.file_description,
-      parent: "t" + req.params.id
-    };
-    returnData.children[ind] = fileData;
-  });
-  console.log(returnData);
+  const returnData = returnFileObject(filesArray, req.params.id);
+  console.log("Return data", returnData);
   if (req.params) res.send(returnData);
   if (!req.params) res.send(false);
 });
 
-//all tags from case
 app.get("/:case/files/tags", async (req, res) => {
-  console.log(req.params);
   let tags = await getAllTagsFromCase(req.params.case);
   if (req.params) res.send(tags);
   if (!req.params) res.send(false);
@@ -127,22 +137,21 @@ app.get("/:case/files/tags", async (req, res) => {
 // Posts
 //============
 
+//new case
 app.post("/case/new", (req, res) => {
-  console.log(req.body);
   const newCase = createCase(req.body);
   if (newCase) res.send(true);
   if (!newCase) res.send(false);
 });
 
+//new file and new tags
 app.post("/case/:case/new", upload.single("file"), async (req, res) => {
-  console.log("request body", req.body);
   const document = req.file;
   const thisCase = req.params.case;
   let docType;
   let fileLocation;
   let fileObject = {};
   let newFile;
-  console.log('what is there a document or something', document)
   if (req.body.file_text !== "") {
     newFile = req.body.file_text;
     docType = "input"
@@ -158,7 +167,6 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
       fileObject.case_id = thisCase;
       fileLocation = __dirname + "/" + document.path;
   }
-
   const fileId = await createFile(fileObject);
   console.log('this is the doctype being passed back to the lol function: ', docType)
   // const tags = await LOL(document, fileLocation, docType);
