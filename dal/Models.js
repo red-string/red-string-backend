@@ -50,7 +50,7 @@ const schemaTags = knex.schema.createTableIfNotExists("Tags", table => {
   table.string("tag");
   table.timestamp("date_created").defaultTo(knex.fn.now());
   table.dateTime("date_modified");
-  table.integer("tag_frequency")
+  table.integer("tag_frequency");
 });
 
 const schemaRoutes = knex.schema.createTableIfNotExists("Routes", table => {
@@ -76,62 +76,18 @@ class Case extends Model {
   static get tableName() {
     return "Cases";
   }
-  // static get relationMappings() {
-  //   return {
-  //     caseFiles: {
-  //       relation: Model.HasManyRelation,
-  //       modelClass: Case,
-  //       join: {
-  //         from: Case.case_id,
-  //         to: File.file_id
-  //       }
-  //     }
-  //   };
-  // }
 }
 
 class File extends Model {
   static get tableName() {
     return "Files";
   }
-  // static relationMappings() {
-  //   return {
-  //     fileTags: {
-  //       relation: Model.HasManyRelation,
-  //       modelClass: Tag,
-  //       join: {
-  //         from: File.file_id,
-  //         to: Tag.file_id
-  //       }
-  //     }
-  //   };
-  // }
 }
 
 class Tag extends Model {
   static get tableName() {
     return "Tags";
   }
-  // static relationMappings() {
-  //   return {
-  //     tagFile: {
-  //       relation: Model.BelongsToOneRelation,
-  //       modelClass: File,
-  //       join: {
-  //         from: Tag.file_id,
-  //         to: File.file_id
-  //       }
-  //     },
-  //     tagCase: {
-  //       relation: Model.BelongsToOneRelation,
-  //       modelClass: Case,
-  //       join: {
-  //         from: Tag.case_id,
-  //         to: Case.case_id
-  //       }
-  //     }
-  //   };
-  // }
 }
 
 class Route extends Model {

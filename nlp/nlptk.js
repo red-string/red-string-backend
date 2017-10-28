@@ -2,16 +2,7 @@ const _ = require("lodash");
 const { getUniqueTags } = require("./tokenizer");
 const { returnTagObjs } = require("./regex");
 
-function maxSizeFileHandler(textFile) {
-  const length = textFile.length;
-  const arraySize = Math.ceil(length / 6500);
-  let docsArray = Array(arraySize);
-  for (i = 0; i < arraySize; i++) {
-    docsArray[i] = textFile.slice(0, 6499);
-  }
-  return docsArray;
-}
-
+//Python child process
 function nlptk(text) {
   let textArr = [];
   let splitText = [];
@@ -45,4 +36,4 @@ function getTagArr(regEx, nlp) {
   return finalArr;
 }
 
-module.exports = { maxSizeFileHandler, nlptk, getTagArr };
+module.exports = { nlptk, getTagArr };

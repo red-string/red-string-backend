@@ -23,7 +23,10 @@ function returnRegExTags(input) {
       matchArr = [];
     }
   });
-  console.log('this is the tag array from the returnRegExTags function', getTagFrequencyArr(tagArr))
+  console.log(
+    "this is the tag array from the returnRegExTags function",
+    getTagFrequencyArr(tagArr)
+  );
   return tagArr;
 }
 
