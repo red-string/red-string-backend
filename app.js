@@ -142,13 +142,11 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   let fileLocation;
   let fileObject = {};
   if ( req.body.file_text !== "") {
-    console.log("I'm doing the thing where I make a document out of text ", req.body.name)
       fileObject.file_name = req.body.name;
       fileObject.file_description = req.body.description;
       fileObject.case_id = thisCase;
       fileObject.file_text = req.body.file_text;
   } else {
-    console.log('this is where we make a file out of a submitted document', req.body.name)
       fileObject.file_name = req.body.name;
       fileObject.file_description = req.body.description;
       fileObject.case_id = thisCase;
