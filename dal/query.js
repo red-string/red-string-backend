@@ -116,21 +116,13 @@ function getTagById(tagId) {
 // Going to have to mess around with this one once we actually get some data
 
 function getFilesThatShareTag(caseId, tagger) {
-  return File.query()
-    .select(
-      "Files.file_name",
-      "Files.file_d3",
-      "Files.file_id",
-      "Files.file_description",
-      "Tags.tag_d3",
-      "Files.case_id",
-      "tag"
-    )
+  return Tag.query()
+    .select("*")
     .from("Tags")
-    .join("Files")
-    .groupBy("file_d3")
-    .where("tag", "=", tagger)
-    .andWhere("Files.case_id", "=", caseId)
+    .join("Files", "Files.file_id", "Tags.file_id")
+    .where("Tags.tag", tagger)
+    .andWhere("Tags.case_id", caseId)
+    .groupBy("Tags.file_id")
     .then(response => {
       return response;
     });
