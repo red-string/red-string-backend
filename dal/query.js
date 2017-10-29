@@ -158,7 +158,7 @@ function getAllTagsThatShareFile(fileId) {
 }
 
 // async function test() {
-//   const result = await getAllTagsThatShareFile(3);
+//   const result = await getFilesThatShareTag(1, "PA");
 //   console.log(result);
 // }
 
