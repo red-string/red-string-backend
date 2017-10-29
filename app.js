@@ -58,6 +58,7 @@ function returnTagObject(tags) {
 }
 
 function returnFileObject(filesArray, id) {
+  console.log("This is files array", filesArray);
   const returnData = {
     name: filesArray.tag,
     d3: "t" + id,
@@ -154,27 +155,26 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   let newFile;
   if (req.body.file_text !== "") {
     newFile = req.body.file_text;
-    docType = "input"
+    docType = "input";
     fileObject.file_name = req.body.name;
     fileObject.file_description = req.body.description;
     fileObject.case_id = thisCase;
     fileObject.file_text = req.body.file_text;
   } else {
-      newFile = document;
-      docType = req.body.file_type;
-      fileObject.file_name = req.body.name;
-      fileObject.file_description = req.body.description;
-      fileObject.case_id = thisCase;
-      fileLocation = __dirname + "/" + document.path;
+    newFile = document;
+    docType = req.body.file_type;
+    fileObject.file_name = req.body.name;
+    fileObject.file_description = req.body.description;
+    fileObject.case_id = thisCase;
+    fileLocation = __dirname + "/" + document.path;
   }
   const fileId = await createFile(fileObject);
-  console.log('this is the doctype being passed back to the lol function: ', docType)
-  // const tags = await LOL(document, fileLocation, docType);
-  const tags = await LOL(newFile, fileLocation, docType)
+  const tags = await fileHandler(newFile, fileLocation, docType);
   if (document) {
-    createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation))
+    createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation));
+  } else {
+    createTags(tags, fileId.is, thisCase);
   }
-  else {createTags(tags, fileId.is, thisCase)}
 
   if (document) res.send(true);
   if (!document) res.send(false);
