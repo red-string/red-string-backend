@@ -123,7 +123,6 @@ app.get("/:case/files/tags/:id", async (req, res) => {
     tagName[0].tag
   );
   const returnData = returnFileObject(filesArray, req.params.id);
-  console.log("Return data", returnData);
   if (req.params) res.send(returnData);
   if (!req.params) res.send(false);
 });
