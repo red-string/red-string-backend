@@ -60,7 +60,7 @@ function returnTagObject(tags) {
 function returnFileObject(filesArray, id) {
   console.log("This is files array", filesArray);
   const returnData = {
-    name: filesArray.tag,
+    name: filesArray[0].tag,
     d3: "t" + id,
     description: "",
     children: []
@@ -75,6 +75,7 @@ function returnFileObject(filesArray, id) {
     };
     returnData.children[ind] = fileData;
   });
+  console.log("This is the return data", returnData);
   return returnData;
 }
 
