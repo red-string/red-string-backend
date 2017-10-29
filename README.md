@@ -7,26 +7,26 @@
 /_____/                                      /____/   
 ```
 
-# red-string
+# redString
 A research and investigational app that uses visual data to describe relationships between documents.
 
 ## Contents
 
-* Using red-string
+* Using redString
     * Submitting documents
     * Selecting and submitting tags
     * Viewing a stringmap
     * Saving stringpaths
-* How red-string works
+* How redString works
     * LOL (Language-obtaining layer)
     * SQL
     * React and D3
-* Who made red-string?
+* Who made redString?
     * About us
     * Contact us
 
 
-## Using red-string
+## Using redString
 
 ### Creating a case
 
@@ -43,7 +43,7 @@ On the home page, click on the case you would like to add a file to. On the left
   ### Viewing a stringmap
   ### Saving stringpaths
 
-## How red-string works
+## How redString works
 
 ### LOL (Language-obtaining layer)
 
@@ -93,11 +93,11 @@ The second set of tags is created through a Python child process that uses the N
   ### React and D3
 
 
-## Who made red-string?
+## Who made redString?
 
 ### About us
 
-red-string was developed in September/October 2017 by Stephen Boynton, Nick Nauert and Ryan Kelley as a final project at the Iron Yard, a 3-month full-stack programming course, and presented on Demo Day at the Harbor Entrepreneur Center on November 2, 2017.
+redString was developed in September/October 2017 by Stephen Boynton, Nick Nauert and Ryan Kelley as a final project at the Iron Yard, a 3-month full-stack programming course, and presented on Demo Day at the Harbor Entrepreneur Center on November 2, 2017.
 
 
 ### Contact us
