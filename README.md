@@ -122,4 +122,4 @@ redString was developed in September/October 2017 by Stephen Boynton, Nick Nauer
 ### Contact the redString team
   * [Stephen Boynton](https://www.stephenboynton.com)
   * [Nick Nauert](https://nicknauert.github.io/PortTwoFolio/)
-  * [Ryan Kelley](www.rtkelley.com)
+  * [Ryan Kelley](http://www.rtkelley.com)
