@@ -8,7 +8,7 @@
 ```
 
 # redString
-redSting is a research and investigational app that uses visual data to describe relationships between documents.
+redSting is a research and investigational app that uses data visualization and natural language processing to illustrate the relationships between submitted documents.
 
 redString was inspired by the age-old trope of the "investigation" room in every cop drama ever made: walls lined with photographs, files and scribbled notes, all connected with thumbtacks and pieces of red string. In this case (ha!), instead of tacking paper to a wall, users upload text files and redString uses natural language processing to generate a dynamic map of relevant tags.  
 
