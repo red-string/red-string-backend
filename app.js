@@ -71,7 +71,7 @@ function returnFileObject(filesArray, id) {
     freq: ""
   };
   filesArray.forEach((file, ind) => {
-    const frequency = tag.tag_frequency * 100;
+    const frequency = file.tag_frequency * 100;
     const fileData = {
       name: file.file_name,
       d3: file.file_d3,
