@@ -181,7 +181,7 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
   if (document) {
     createTags(tags, fileId.id, thisCase).then(deleteFile(fileLocation));
   } else {
-    createTags(tags, fileId.is, thisCase);
+    createTags(tags, fileId.id, thisCase);
   }
 
   if (document) res.send(true);
