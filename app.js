@@ -15,6 +15,7 @@ const {
   getAllTagsFromCase,
   getAllTagsFromFile,
   getAllFilesFromCase,
+  getTagFrequencyFromFile,
   getAllCases,
   createTags,
   createFile,
@@ -42,40 +43,45 @@ function returnTagObject(tags) {
     name: tags[0].file_name,
     d3: tags[0].file_d3,
     desciption: tags[0].file_description,
-    children: []
+    children: [],
+    freq: ""
   };
   tags.forEach((tag, ind) => {
+    const frequency = tag.tag_frequency * 100;
     const tagInfo = {
       name: tag.tag,
       id: tag.tag_id,
       d3: tag.tag_d3,
       desciption: "",
-      parent: fileInfo.d3
+      parent: fileInfo.d3,
+      freq: Math.ceil(frequency)
     };
     fileInfo.children[ind] = tagInfo;
   });
+  console.log(fileInfo);
   return fileInfo;
 }
 
 function returnFileObject(filesArray, id) {
-  console.log("This is files array", filesArray);
   const returnData = {
     name: filesArray[0].tag,
     d3: "t" + id,
     description: "",
-    children: []
+    children: [],
+    freq: ""
   };
   filesArray.forEach((file, ind) => {
+    const frequency = tag.tag_frequency * 100;
     const fileData = {
       name: file.file_name,
       d3: file.file_d3,
       id: file.file_id,
       description: file.file_description,
-      parent: "t" + id
+      parent: "t" + id,
+      freq: Math.ceil(frequency)
     };
     returnData.children[ind] = fileData;
   });
-  console.log("This is the return data", returnData);
   return returnData;
 }
 
@@ -121,9 +127,11 @@ app.get("/:case/files/tags/:id", async (req, res) => {
   const tagName = await getTagById(req.params.id);
   const filesArray = await getFilesThatShareTag(
     req.params.case,
-    tagName[0].tag
+    tagName[0].tag,
+    req.params.id
   );
-  const returnData = returnFileObject(filesArray, req.params.id);
+  const withFrequency = await getTagFrequencyFromFile(filesArray);
+  const returnData = returnFileObject(withFrequency, req.params.id);
   if (req.params) res.send(returnData);
   if (!req.params) res.send(false);
 });

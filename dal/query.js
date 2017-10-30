@@ -115,7 +115,7 @@ function getTagById(tagId) {
 // ============================================ Get Shared
 // Going to have to mess around with this one once we actually get some data
 
-function getFilesThatShareTag(caseId, tagger) {
+function getFilesThatShareTag(caseId, tagger, tagId) {
   return Tag.query()
     .select("*")
     .from("Tags")
@@ -124,7 +124,8 @@ function getFilesThatShareTag(caseId, tagger) {
     .andWhere("Tags.case_id", caseId)
     .groupBy("Tags.file_id")
     .then(response => {
-      return response;
+      const sendRes = response.filter(res => res.tag_id !== tagId);
+      return sendRes;
     });
 }
 
@@ -136,6 +137,7 @@ function getAllTagsThatShareFile(fileId) {
       "Files.file_description",
       "tag_d3",
       "tag_id",
+      "tag_frequency",
       "Files.file_id",
       "Files.case_id",
       "tag"
@@ -150,11 +152,35 @@ function getAllTagsThatShareFile(fileId) {
 }
 
 // async function test() {
-//   const result = await getFilesThatShareTag(1, "PA");
-//   console.log(result);
+//   const result = await getFilesThatShareTag(1, "PA", 18);
+//   console.log("Result in Test", result);
+//   const withFreq = await getTagFrequencyFromFile(result);
+//   console.log("With freq", withFreq);
 // }
 
 // test();
+
+function getTagFrequencyFromFile(fileArray) {
+  const len = fileArray.length;
+  let counter = 0;
+  return new Promise((resolve, reject) => {
+    fileArray.forEach((fileObj, ind) => {
+      Tag.query()
+        .where("tag", fileObj.tag)
+        .andWhere("file_id", fileObj.file_id)
+        .then(result => {
+          const correctTag = result.filter(tag => tag.tag_id == fileObj.tag_id);
+          fileObj.freq = correctTag[0].tag_frequency;
+          if (counter == len - 1) {
+            resolve(fileArray);
+          } else {
+            counter++;
+            return;
+          }
+        });
+    });
+  });
+}
 
 // ============================================= Get Multiple
 
@@ -185,6 +211,7 @@ module.exports = {
   getAllTagsFromCase,
   getAllTagsFromFile,
   getAllFilesFromCase,
+  getTagFrequencyFromFile,
   getAllCases,
   deleteFile
 };
