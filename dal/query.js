@@ -149,12 +149,12 @@ function getAllTagsThatShareFile(fileId) {
     });
 }
 
-// async function test() {
-//   const result = await getFilesThatShareTag(1, "PA");
-//   console.log(result);
-// }
+async function test() {
+  const result = await getFilesThatShareTag(1, "PA");
+  console.log(result);
+}
 
-// test();
+test();
 
 // ============================================= Get Multiple
 
