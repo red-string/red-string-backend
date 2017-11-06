@@ -93,7 +93,7 @@ function returnFileObject(filesArray, id) {
 
 // ===========
 // Gets
-//============
+//===========
 
 app.get("/case", async (req, res) => {
   let cases = await getAllCases();
