@@ -8,7 +8,8 @@
     "start": "nodemon app.js"
   },
   "engines": {
-    "node": "8.2.1"
+    "node": "8.2.1",
+    "python": "3.6"
   },
   "repository": {
     "type": "git",
