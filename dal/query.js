@@ -136,7 +136,7 @@ function getAllTagsThatShareFile(fileId) {
       "Files.file_d3",
       "Files.file_description",
       "tag_d3",
-      "id",
+      "Tag.id",
       "tag_frequency",
       "Files.id",
       "Files.case_id",
