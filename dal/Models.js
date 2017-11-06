@@ -13,7 +13,7 @@ const knex = Knex({
 Model.knex(knex);
 
 const schemaCases = knex.schema.createTableIfNotExists("Cases", table => {
-  table.increments("case_id");
+  table.increments("case_id").idAttribute();
   table.string("case_name");
   table.string("case_description");
   table.string("case_d3");
@@ -22,7 +22,7 @@ const schemaCases = knex.schema.createTableIfNotExists("Cases", table => {
 });
 
 const schemaFiles = knex.schema.createTableIfNotExists("Files", table => {
-  table.increments("file_id");
+  table.increments("file_id").idAttribute();
   table
     .integer("case_id")
     .references("case_id")
@@ -36,7 +36,7 @@ const schemaFiles = knex.schema.createTableIfNotExists("Files", table => {
 });
 
 const schemaTags = knex.schema.createTableIfNotExists("Tags", table => {
-  table.increments("tag_id");
+  table.increments("tag_id").idAttribute();
   table
     .integer("file_id")
     .references("file_id")
@@ -53,7 +53,7 @@ const schemaTags = knex.schema.createTableIfNotExists("Tags", table => {
 });
 
 const schemaRoutes = knex.schema.createTableIfNotExists("Routes", table => {
-  table.increments("route_id");
+  table.increments("route_id").idAttribute();
   table
     .integer("case_id ")
     .references("case_id")
