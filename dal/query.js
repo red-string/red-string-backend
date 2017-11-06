@@ -145,7 +145,6 @@ function getAllTagsThatShareFile(fileId) {
     .from("Files")
     .join("Tags")
     .where("Files.id", "=", fileId)
-    .andWhere("Tags.file_id", "=", fileId)
     .then(response => {
       return response;
     });
