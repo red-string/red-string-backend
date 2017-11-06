@@ -136,11 +136,11 @@ function getAllTagsThatShareFile(fileId) {
       "Files.file_d3",
       "Files.file_description",
       "tag_d3",
-      "Tag.id",
-      "Tag.tag_frequency",
+      "Tags.id",
+      "Tags.tag_frequency",
       "Files.id",
       "Files.case_id",
-      "Tag.tag"
+      "Tags.tag"
     )
     .from("Tags")
     .join("Files", "Tags.file_id", "Files.id")
