@@ -6,7 +6,7 @@ async function createCase(caseObject) {
   console.log("This is the lastId variable = ", lastId.length);
   let d3;
   if (lastId.length !== 0) {
-    d3 = "c" + (lastId[0].case_id + 1);
+    d3 = "c" + (lastId[0].id + 1);
   } else {
     d3 = "c1";
   }

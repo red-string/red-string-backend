@@ -44,8 +44,8 @@ function getAllTagsFromCase(caseId) {
 
 function getLastCaseId() {
   return Case.query()
-    .select("case_id")
-    .orderBy("case_id", "desc")
+    .select("id")
+    .orderBy("id", "desc")
     .limit(1)
     .then(response => {
       console.log(response == true);
