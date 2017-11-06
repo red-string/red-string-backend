@@ -1,14 +1,13 @@
-const sqlite3 = require("sqlite3");
+// const sqlite3 = require("sqlite3");
+const pg = require("pg");
 const Promise = require("bluebird");
 const objection = require("objection");
 const Model = objection.Model;
 const Knex = require("knex");
 
 const knex = Knex({
-  client: "sqlite3",
-  connection: {
-    filename: __dirname + "/db/redstring.db"
-  }
+  client: "pg",
+  connection: process.env.DATABSE
 });
 
 Model.knex(knex);
