@@ -28,7 +28,7 @@ async function createFile(fileObject) {
   let d3;
   console.log(lastId);
   if (lastId.length !== 0) {
-    d3 = "f" + (lastId[0].file_id + 1);
+    d3 = "f" + (lastId[0].id + 1);
   } else {
     d3 = "f1";
   }
@@ -51,7 +51,7 @@ async function createTags(tagObjectArray, fileId, caseId) {
   let startNum;
   console.log(lastId);
   if (lastId.length !== 0) {
-    startNum = lastId[0].tag_id + 1;
+    startNum = lastId[0].id + 1;
   } else {
     startNum = 0;
   }

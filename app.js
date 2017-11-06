@@ -52,7 +52,7 @@ function returnTagObject(tags) {
     const frequency = tag.tag_frequency * 100;
     const tagInfo = {
       name: tag.tag,
-      id: tag.tag_id,
+      id: tag.id,
       d3: tag.tag_d3,
       desciption: "",
       parent: fileInfo.d3,
@@ -77,7 +77,7 @@ function returnFileObject(filesArray, id) {
     const fileData = {
       name: file.file_name,
       d3: file.file_d3,
-      id: file.file_id,
+      id: file.id,
       description: file.file_description,
       parent: "t" + id,
       freq: Math.ceil(frequency)

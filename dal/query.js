@@ -60,8 +60,8 @@ function getLastCaseId() {
 function getLastFileId() {
   return new Promise((resolve, reject) => {
     File.query()
-      .select("file_id")
-      .orderBy("file_id", "desc")
+      .select("id")
+      .orderBy("id", "desc")
       .limit(1)
       .then(response => {
         resolve(response);
@@ -72,8 +72,8 @@ function getLastFileId() {
 function getLastTagId() {
   return new Promise((resolve, reject) => {
     Tag.query()
-      .select("tag_id")
-      .orderBy("tag_id", "desc")
+      .select("id")
+      .orderBy("id", "desc")
       .limit(1)
       .then(response => {
         resolve(response);
@@ -86,7 +86,7 @@ function getLastTagId() {
 function getCaseById(caseId) {
   return new Promise((resolve, reject) => {
     Case.query()
-      .where("case_id", "=", caseId)
+      .where("id", "=", caseId)
       .then(singleCase => {
         resolve(singleCase);
       });
@@ -96,7 +96,7 @@ function getCaseById(caseId) {
 function getFileById(fileId) {
   return new Promise((resolve, reject) => {
     File.query()
-      .where("file_id", "=", fileId)
+      .where("id", "=", fileId)
       .then(file => {
         resolve(file);
       });
@@ -105,7 +105,7 @@ function getFileById(fileId) {
 
 function getTagById(tagId) {
   return Tag.query()
-    .where("tag_id", "=", tagId)
+    .where("id", "=", tagId)
     .then(tag => {
       console.log(tag);
       return tag;
@@ -119,7 +119,7 @@ function getFilesThatShareTag(caseId, tagger, tagId) {
   return Tag.query()
     .select("*")
     .from("Tags")
-    .join("Files", "Files.file_id", "Tags.file_id")
+    .join("Files", "Files.id", "Tags.file_id")
     .where("Tags.tag", tagger)
     .andWhere("Tags.case_id", caseId)
     .groupBy("Tags.file_id")
@@ -136,15 +136,15 @@ function getAllTagsThatShareFile(fileId) {
       "Files.file_d3",
       "Files.file_description",
       "tag_d3",
-      "tag_id",
+      "id",
       "tag_frequency",
-      "Files.file_id",
+      "Files.id",
       "Files.case_id",
       "tag"
     )
     .from("Files")
     .join("Tags")
-    .where("Files.file_id", "=", fileId)
+    .where("Files.id", "=", fileId)
     .andWhere("Tags.file_id", "=", fileId)
     .then(response => {
       return response;

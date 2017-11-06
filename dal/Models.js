@@ -22,10 +22,10 @@ const schemaCases = knex.schema.createTableIfNotExists("Cases", table => {
 });
 
 const schemaFiles = knex.schema.createTableIfNotExists("Files", table => {
-  table.increments("file_id");
+  table.increments();
   table
     .integer("case_id")
-    .references("case_id")
+    .references("id")
     .inTable("Cases");
   table.string("file_name");
   table.string("file_description");
@@ -36,14 +36,14 @@ const schemaFiles = knex.schema.createTableIfNotExists("Files", table => {
 });
 
 const schemaTags = knex.schema.createTableIfNotExists("Tags", table => {
-  table.increments("tag_id");
+  table.increments();
   table
     .integer("file_id")
-    .references("file_id")
+    .references("id")
     .inTable("Files");
   table
     .integer("case_id")
-    .references("case_id")
+    .references("id")
     .inTable("Cases");
   table.string("tag_d3");
   table.string("tag");
@@ -53,10 +53,10 @@ const schemaTags = knex.schema.createTableIfNotExists("Tags", table => {
 });
 
 const schemaRoutes = knex.schema.createTableIfNotExists("Routes", table => {
-  table.increments("route_id");
+  table.increments();
   table
     .integer("case_id ")
-    .references("case_id")
+    .references("id")
     .inTable("Cases");
   table.text("route");
   table.text("route_name");
