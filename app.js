@@ -1,5 +1,6 @@
 const express = require("express");
 const multer = require("multer");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
 const {
@@ -31,7 +32,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-
+app.use(cors());
 app.use(bodyParser.json());
 
 // ============================================
