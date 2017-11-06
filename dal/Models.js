@@ -19,6 +19,7 @@ const schemaCases = knex.schema.createTableIfNotExists("Cases", table => {
   table.string("case_d3");
   table.timestamp("date_created").defaultTo(knex.fn.now());
   table.dateTime("date_modified");
+  table.idAttribute(null);
 });
 
 const schemaFiles = knex.schema.createTableIfNotExists("Files", table => {
