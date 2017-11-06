@@ -13,7 +13,7 @@ const knex = Knex({
 Model.knex(knex);
 
 const schemaCases = knex.schema.createTableIfNotExists("Cases", table => {
-  table.increments("case_id").idAttribute();
+  table.increments("case_id").idAttribute(null);
   table.string("case_name");
   table.string("case_description");
   table.string("case_d3");
