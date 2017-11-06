@@ -193,7 +193,7 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
 // Server set up
 //============================================
 
-app.set("port", process.env.port);
+app.set("port", process.env.PORT);
 
 app.listen(app.get("port"), () => {
   console.log("Your app has started, sir.");
