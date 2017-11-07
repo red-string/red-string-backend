@@ -133,7 +133,7 @@ function getAllTagsThatShareFile(fileId) {
   return Tag.query()
     .select("Tags.*", "Files.file_name", "Files.file_description")
     .from("Files")
-    .join("Files", "Tags.file_id", "Files.id")
+    .join("Tags.file_id", "Files.id")
     .where("Tags.file_id", fileId)
     .then(response => {
       console.log("Get all tags that share file", response);
