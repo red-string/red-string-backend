@@ -142,7 +142,7 @@ function getAllTagsThatShareFile(fileId) {
     )
     .from("Tags")
     .join("Files", "Tags.file_id", "Files.id")
-    .groupBy("Files.file_name")
+    .groupBy("Files.file_name", "Files.file_id")
     .then(response => {
       return response;
     });
