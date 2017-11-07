@@ -148,7 +148,7 @@ function getAllTagsThatShareFile(fileId) {
             };
           });
           console.log("With file!", withFile);
-          return withFile;
+          return withFile[0];
         });
     })
     .catch();
