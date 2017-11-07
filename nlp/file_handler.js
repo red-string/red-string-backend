@@ -30,7 +30,7 @@ function getPDFtext(fileObject, fileLocation) {
       const text = pdfParser.getRawTextContent();
       resolve(text);
     });
-    pdfParser.loadPDF(fileObject);
+    pdfParser.loadPDF(fileLocation);
   });
 }
 
