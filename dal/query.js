@@ -114,6 +114,7 @@ function getTagById(tagId) {
 // Going to have to mess around with this one once we actually get some data
 
 function getFilesThatShareTag(caseId, tagger, tagId) {
+  console.log("Case ID", caseId, "Tag", tagger, "Tag ID", tagId);
   return Tag.query()
     .select("*")
     .from("Tags")
@@ -123,6 +124,7 @@ function getFilesThatShareTag(caseId, tagger, tagId) {
     .groupBy("Tags.file_id", "Tags.id", "Files.id")
     .then(response => {
       const sendRes = response.filter(res => res.tag_id !== tagId);
+      console.log("This is send response", sendRes);
       return sendRes;
     });
 }
