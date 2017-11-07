@@ -15,6 +15,7 @@ function getDocXText(fileObject, fileLocation) {
   const zip = new JSZip(readFile);
   const doc = new Docxtemplater().loadZip(zip);
   const text = doc.getFullText();
+  console.log("This is docx text", text);
   return text;
 }
 
@@ -38,7 +39,7 @@ async function fileHandler(fileObject, fileLocation, fileType) {
   let text;
   if (fileType === "docx") {
     text = getDocXText(fileObject, fileLocation);
-    console.log(text);
+    console.log("This is docx text", text);
   } else if (fileType === "pdf") {
     text = await getPDFtext(fileObject, fileLocation);
   } else if (fileType === "input") {

@@ -48,7 +48,6 @@ function getLastCaseId() {
     .orderBy("id", "desc")
     .limit(1)
     .then(response => {
-      console.log(response == true);
       if (response) {
         return response;
       } else {
@@ -107,7 +106,6 @@ function getTagById(tagId) {
   return Tag.query()
     .where("id", "=", tagId)
     .then(tag => {
-      console.log(tag);
       return tag;
     });
 }
@@ -189,7 +187,6 @@ function getMultipleFiles(fileIdArray) {
 // =================================== Delete File (once all tags are created and file data is stored!)
 
 function deleteFile(location) {
-  console.log("DELETING ", location, "!");
   fs.unlink(location, function(err) {
     if (err) return console.log(err);
     console.log("file deleted successfully");

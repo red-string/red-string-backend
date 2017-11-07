@@ -40,7 +40,6 @@ app.use(bodyParser.json());
 //============================================
 
 function returnTagObject(tags) {
-  console.log("returnTagObject in app.js", tags);
   const fileInfo = {
     name: tags[0].file_name,
     d3: tags[0].file_d3,
@@ -60,7 +59,6 @@ function returnTagObject(tags) {
     };
     fileInfo.children[ind] = tagInfo;
   });
-  console.log(fileInfo);
   return fileInfo;
 }
 
