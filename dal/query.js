@@ -128,30 +128,32 @@ function getFilesThatShareTag(caseId, tagger, tagId) {
     });
 }
 
-function getAllTagsThatShareFile(fileId) {
-  return Tag.query()
-    .where("file_id", fileId)
-    .then(tags => {
-      File.query()
-        .select("file_name", "file_d3", "file_description")
-        .where("id", fileId)
-        .then(file => {
-          const withFile = tags.map(tag => {
-            return {
-              tag: tag.tag,
-              id: tag.id,
-              tag_d3: tag.tag_d3,
-              tag_frequency: tag.tag_frequency,
-              file_name: file[0].file_name,
-              file_d3: file[0].file_d3,
-              file_description: file[0].file_description
-            };
+async function getAllTagsThatShareFile(fileId) {
+  return new Promise((resolve, reject) => {
+    Tag.query()
+      .where("file_id", fileId)
+      .then(tags => {
+        File.query()
+          .select("file_name", "file_d3", "file_description")
+          .where("id", fileId)
+          .then(file => {
+            const withFile = tags.map(tag => {
+              return {
+                tag: tag.tag,
+                id: tag.id,
+                tag_d3: tag.tag_d3,
+                tag_frequency: tag.tag_frequency,
+                file_name: file[0].file_name,
+                file_d3: file[0].file_d3,
+                file_description: file[0].file_description
+              };
+            });
+            console.log("With file!", withFile[0]);
+            resolve(withFile);
           });
-          console.log("With file!", withFile[0]);
-          return withFile;
-        });
-    })
-    .catch();
+      })
+      .catch();
+  });
 }
 
 // async function test() {
