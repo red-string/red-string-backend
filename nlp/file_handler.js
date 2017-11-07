@@ -10,7 +10,7 @@ const _ = require("lodash");
 
 //preparing document text for language processing
 function getDocXText(fileObject, fileLocation) {
-  const document = fileLocation;
+  const document = fileObject;
   const readFile = fs.readFileSync(document);
   const zip = new JSZip(readFile);
   const doc = new Docxtemplater().loadZip(zip);
@@ -29,7 +29,7 @@ function getPDFtext(fileObject, fileLocation) {
       const text = pdfParser.getRawTextContent();
       resolve(text);
     });
-    pdfParser.loadPDF(fileLocation);
+    pdfParser.loadPDF(fileObject);
   });
 }
 
