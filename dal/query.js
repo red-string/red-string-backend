@@ -120,7 +120,7 @@ function getFilesThatShareTag(caseId, tagger, tagId) {
     .join("Files", "Files.id", "Tags.file_id")
     .where("Tags.tag", tagger)
     .andWhere("Tags.case_id", caseId)
-    .groupBy("Tags.file_id")
+    .groupBy("Tags.file_id", "Tags.id")
     .then(response => {
       const sendRes = response.filter(res => res.tag_id !== tagId);
       return sendRes;
