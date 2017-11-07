@@ -129,7 +129,7 @@ function getFilesThatShareTag(caseId, tagger, tagId) {
 
 function getAllTagsThatShareFile(fileId) {
   return Tag.query()
-    .select()
+    .select("*", "Files.file_name", "Files.file_description")
     .from("Tags", "Files")
     .where("Tags.file_id", fileId)
     .join("Files", "Tags.file_id", "Files.id")
