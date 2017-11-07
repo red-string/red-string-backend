@@ -133,12 +133,12 @@ function getAllTagsThatShareFile(fileId) {
     .from("Tags", "Files")
     .where("Tags.file_id", fileId)
     .join("Files", "Tags.file_id", "Files.id")
-    .groupBy("Files.id")
+    .groupBy("Files.id", "Tags.id")
     .then(response => {
       console.log("Get all tags that share file", response);
       return response;
     })
-    .catch(err);
+    .catch();
 }
 
 // async function test() {
