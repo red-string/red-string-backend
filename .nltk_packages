@@ -1,3 +1,4 @@
+punkt
 word_tokenize
 pos_tag
-nltk_data
+ne_chunk
