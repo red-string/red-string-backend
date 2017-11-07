@@ -49,7 +49,7 @@ const schemaTags = knex.schema.createTableIfNotExists("Tags", table => {
   table.string("tag");
   table.timestamp("date_created").defaultTo(knex.fn.now());
   table.dateTime("date_modified");
-  table.integer("tag_frequency");
+  table.float("tag_frequency");
 });
 
 const schemaRoutes = knex.schema.createTableIfNotExists("Routes", table => {
