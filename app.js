@@ -59,6 +59,7 @@ function returnTagObject(tags) {
     };
     fileInfo.children[ind] = tagInfo;
   });
+  console.log("File info", fileInfo[0]);
   return fileInfo;
 }
 
