@@ -129,21 +129,9 @@ function getFilesThatShareTag(caseId, tagger, tagId) {
 
 function getAllTagsThatShareFile(fileId) {
   return Tag.query()
-    .select(
-      "Files.file_name",
-      "Files.file_d3",
-      "Files.file_description",
-      "tag_d3",
-      "Tags.id",
-      "Tags.tag_frequency",
-      "Files.id",
-      "Files.case_id",
-      "Tags.tag"
-    )
-    .from("Tags")
-    .join("Files", "Tags.file_id", "Files.id")
+    .select()
+    .from("Tags", "Files")
     .where("Tags.file_id", "Files.id")
-    .groupBy("Tags.tag")
     .then(response => {
       return response;
     });
