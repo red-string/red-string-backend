@@ -12,7 +12,7 @@ const _ = require("lodash");
 function getDocXText(fileObject, fileLocation) {
   const document = fileLocation;
   const readFile = fs.readFileSync(document);
-  const zip = new JSZip(document);
+  const zip = new JSZip(readFile);
   const doc = new Docxtemplater().loadZip(zip);
   const text = doc.getFullText();
   console.log("This is docx text", text);
