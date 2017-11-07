@@ -7,6 +7,8 @@
 /_____/                                      /____/   
 ```
 
+[Live Example](https://www.redstring.xyz "Red String")
+
 # redString
 redString is a research and investigation app that uses data visualization and natural language processing to illustrate the relationships between submitted documents.
 
