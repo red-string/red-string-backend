@@ -131,7 +131,7 @@ function getAllTagsThatShareFile(fileId) {
   return Tag.query()
     .select()
     .from("Tags", "Files")
-    .where("Tags.file_id", "Files.id")
+    .where("Tags.file_id", fileId)
     .then(response => {
       return response;
     });
