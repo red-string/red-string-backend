@@ -40,6 +40,7 @@ app.use(bodyParser.json());
 //============================================
 
 function returnTagObject(tags) {
+  console.log("Tags being passed in?", tags[0]);
   const fileInfo = {
     name: tags[0].file_name,
     d3: tags[0].file_d3,
