@@ -37,6 +37,7 @@ function getPDFtext(fileObject, fileLocation) {
 //function to get tags from uploaded text file
 async function fileHandler(fileObject, fileLocation, fileType) {
   let text;
+  console.log("This is the file handler", fileObject);
   if (fileType === "docx") {
     text = getDocXText(fileObject, fileLocation);
     console.log("This is docx text", text);

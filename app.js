@@ -155,6 +155,7 @@ app.post("/case/new", (req, res) => {
 
 //new file and new tags
 app.post("/case/:case/new", upload.single("file"), async (req, res) => {
+  console.log("Recieved file in app", req.file);
   const document = req.file;
   const thisCase = req.params.case;
   let docType;
