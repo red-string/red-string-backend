@@ -87,6 +87,18 @@ class Tag extends Model {
   static get tableName() {
     return "Tags";
   }
+  static get relationMappings() {
+    return {
+      files: {
+        relation: Model.HasOneRelation,
+        modelClass: File,
+        join: {
+          from: "Tags.file_id",
+          to: "Files.id"
+        }
+      }
+    };
+  }
 }
 
 class Route extends Model {
@@ -95,16 +107,9 @@ class Route extends Model {
   }
 }
 
-class filesTags extends Model {
-  static get tableName() {
-    return { a: "Files", b: "Tags" };
-  }
-}
-
 module.exports = {
   Case,
   File,
   Tag,
-  Route,
-  filesTags
+  Route
 };

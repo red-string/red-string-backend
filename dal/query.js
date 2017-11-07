@@ -1,4 +1,4 @@
-const { Case, File, Tag, Route, filesTags } = require("./Models");
+const { Case, File, Tag, Route } = require("./Models");
 const fs = require("fs");
 
 //========================================= Get ALL From ... ===============
@@ -129,8 +129,8 @@ function getFilesThatShareTag(caseId, tagger, tagId) {
 }
 
 function getAllTagsThatShareFile(fileId) {
-  return filesTags
-    .query()
+  return Tags.query()
+    .Files.query()
     .then(response => {
       console.log("Get all tags that share file", response);
       return response;
