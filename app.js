@@ -25,7 +25,7 @@ const {
 } = require("./dal");
 const { fileHandler } = require("./nlp/file_handler");
 const storage = multer.diskStorage({
-  destination: "./dal/temp",
+  destination: "./tmp",
   filename: function(req, file, cb) {
     cb(null, file.fieldname + "-" + Date.now());
   }
