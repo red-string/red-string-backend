@@ -11,8 +11,8 @@ const _ = require("lodash");
 //preparing document text for language processing
 function getDocXText(fileObject, fileLocation) {
   const document = fileObject;
-  const readFile = fs.readFileSync(document);
-  const zip = new JSZip(readFile);
+  // const readFile = fs.readFileSync(document);
+  const zip = new JSZip(document);
   const doc = new Docxtemplater().loadZip(zip);
   const text = doc.getFullText();
   console.log("This is docx text", text);
