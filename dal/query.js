@@ -131,9 +131,9 @@ function getFilesThatShareTag(caseId, tagger, tagId) {
 
 function getAllTagsThatShareFile(fileId) {
   return Tag.query()
-    .select("*", "Files.file_name", "Files.file_description")
+    .select("Tags.*", "Files.file_name", "Files.file_description")
     .from("Files")
-    .join("Tags", "Tags.file_id")
+    .join("Files", "Tags.file_id", "Files.id")
     .where("Tags.file_id", fileId)
     .then(response => {
       console.log("Get all tags that share file", response);
