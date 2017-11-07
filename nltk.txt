@@ -1,4 +1,3 @@
 word_tokenize
 pos_tag
-ne_chunk
 nltk_data
