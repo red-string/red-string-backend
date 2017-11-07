@@ -136,18 +136,18 @@ function getAllTagsThatShareFile(fileId) {
         .select("file_name", "file_d3", "file_description")
         .where("id", fileId)
         .then(file => {
-          console.log(file);
           const withFile = tags.map(tag => {
             return {
               tag: tag.tag,
               id: tag.id,
               tag_d3: tag.tag_d3,
               tag_frequency: tag.tag_frequency,
-              file_name: file.file_name,
-              file_d3: file.file_d3,
-              file_description: file.file_description
+              file_name: file[0].file_name,
+              file_d3: file[0].file_d3,
+              file_description: file[0].file_description
             };
           });
+          console.log("With file!", withFile);
           return withFile;
         });
     })
