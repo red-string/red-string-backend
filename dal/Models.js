@@ -95,9 +95,16 @@ class Route extends Model {
   }
 }
 
+class filesTags extends Model {
+  static get tableName() {
+    return { a: "Files", b: "Tags" };
+  }
+}
+
 module.exports = {
   Case,
   File,
   Tag,
-  Route
+  Route,
+  filesTags
 };
