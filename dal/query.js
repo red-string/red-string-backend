@@ -130,10 +130,26 @@ function getFilesThatShareTag(caseId, tagger, tagId) {
 
 function getAllTagsThatShareFile(fileId) {
   return Tag.query()
-    .File.query()
+    .where("file_id", fileId)
     .then(response => {
-      console.log("Get all tags that share file", response);
-      return response;
+      console.log("Get all tags that share file", tags);
+      File.query()
+        .select("file_name", "file_d3", "file_description")
+        .where("id", fileId)
+        .then(file => {
+          const withFile = tags.map(tag => {
+            return {
+              tag: tag.tag,
+              id: tag.id,
+              tag_d3: tag.tag_d3,
+              tag_frequency: tag.tag_frequency,
+              file_name: file[0].file_name,
+              file_d3: file[0].file_d3,
+              file_description: file[0].file_description
+            };
+          });
+          return withFile;
+        });
     })
     .catch();
 }
