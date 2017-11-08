@@ -1,5 +1,6 @@
 const express = require("express");
 const multer = require("multer");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
 const {
@@ -24,14 +25,14 @@ const {
 } = require("./dal");
 const { fileHandler } = require("./nlp/file_handler");
 const storage = multer.diskStorage({
-  destination: "./dal/temp",
+  destination: "./tmp",
   filename: function(req, file, cb) {
     cb(null, file.fieldname + "-" + Date.now());
   }
 });
 
 const upload = multer({ storage });
-
+app.use(cors());
 app.use(bodyParser.json());
 
 // ============================================
@@ -39,6 +40,7 @@ app.use(bodyParser.json());
 //============================================
 
 function returnTagObject(tags) {
+  console.log("Tags being passed in?", tags[0]);
   const fileInfo = {
     name: tags[0].file_name,
     d3: tags[0].file_d3,
@@ -50,7 +52,7 @@ function returnTagObject(tags) {
     const frequency = tag.tag_frequency * 100;
     const tagInfo = {
       name: tag.tag,
-      id: tag.tag_id,
+      id: tag.id,
       d3: tag.tag_d3,
       desciption: "",
       parent: fileInfo.d3,
@@ -58,7 +60,7 @@ function returnTagObject(tags) {
     };
     fileInfo.children[ind] = tagInfo;
   });
-  console.log(fileInfo);
+  console.log("File info", fileInfo[0]);
   return fileInfo;
 }
 
@@ -75,7 +77,7 @@ function returnFileObject(filesArray, id) {
     const fileData = {
       name: file.file_name,
       d3: file.file_d3,
-      id: file.file_id,
+      id: file.id,
       description: file.file_description,
       parent: "t" + id,
       freq: Math.ceil(frequency)
@@ -91,7 +93,7 @@ function returnFileObject(filesArray, id) {
 
 // ===========
 // Gets
-//============
+//===========
 
 app.get("/case", async (req, res) => {
   let cases = await getAllCases();
@@ -155,6 +157,7 @@ app.post("/case/new", (req, res) => {
 
 //new file and new tags
 app.post("/case/:case/new", upload.single("file"), async (req, res) => {
+  console.log("Recieved file in app", req.file);
   const document = req.file;
   const thisCase = req.params.case;
   let docType;
@@ -192,7 +195,7 @@ app.post("/case/:case/new", upload.single("file"), async (req, res) => {
 // Server set up
 //============================================
 
-app.set("port", 4000);
+app.set("port", process.env.PORT);
 
 app.listen(app.get("port"), () => {
   console.log("Your app has started, sir.");

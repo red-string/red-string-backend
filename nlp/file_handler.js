@@ -15,6 +15,7 @@ function getDocXText(fileObject, fileLocation) {
   const zip = new JSZip(readFile);
   const doc = new Docxtemplater().loadZip(zip);
   const text = doc.getFullText();
+  console.log("This is docx text", text);
   return text;
 }
 
@@ -36,9 +37,10 @@ function getPDFtext(fileObject, fileLocation) {
 //function to get tags from uploaded text file
 async function fileHandler(fileObject, fileLocation, fileType) {
   let text;
+  console.log("This is the file handler", fileObject);
   if (fileType === "docx") {
     text = getDocXText(fileObject, fileLocation);
-    console.log(text);
+    console.log("This is docx text", text);
   } else if (fileType === "pdf") {
     text = await getPDFtext(fileObject, fileLocation);
   } else if (fileType === "input") {

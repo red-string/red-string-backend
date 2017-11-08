@@ -1,20 +1,19 @@
-const sqlite3 = require("sqlite3");
+// const sqlite3 = require("sqlite3");
+const pg = require("pg");
 const Promise = require("bluebird");
 const objection = require("objection");
 const Model = objection.Model;
 const Knex = require("knex");
 
 const knex = Knex({
-  client: "sqlite3",
-  connection: {
-    filename: __dirname + "/db/redstring.db"
-  }
+  client: "pg",
+  connection: process.env.DATABASE_URL
 });
 
 Model.knex(knex);
 
 const schemaCases = knex.schema.createTableIfNotExists("Cases", table => {
-  table.increments("case_id").primary();
+  table.increments();
   table.string("case_name");
   table.string("case_description");
   table.string("case_d3");
@@ -23,10 +22,10 @@ const schemaCases = knex.schema.createTableIfNotExists("Cases", table => {
 });
 
 const schemaFiles = knex.schema.createTableIfNotExists("Files", table => {
-  table.increments("file_id").primary();
+  table.increments();
   table
     .integer("case_id")
-    .references("case_id")
+    .references("id")
     .inTable("Cases");
   table.string("file_name");
   table.string("file_description");
@@ -37,27 +36,27 @@ const schemaFiles = knex.schema.createTableIfNotExists("Files", table => {
 });
 
 const schemaTags = knex.schema.createTableIfNotExists("Tags", table => {
-  table.increments("tag_id").primary();
+  table.increments();
   table
     .integer("file_id")
-    .references("file_id")
+    .references("id")
     .inTable("Files");
   table
     .integer("case_id")
-    .references("case_id")
+    .references("id")
     .inTable("Cases");
   table.string("tag_d3");
   table.string("tag");
   table.timestamp("date_created").defaultTo(knex.fn.now());
   table.dateTime("date_modified");
-  table.integer("tag_frequency");
+  table.float("tag_frequency");
 });
 
 const schemaRoutes = knex.schema.createTableIfNotExists("Routes", table => {
-  table.increments("route_id").primary();
+  table.increments();
   table
     .integer("case_id ")
-    .references("case_id")
+    .references("id")
     .inTable("Cases");
   table.text("route");
   table.text("route_name");
@@ -87,6 +86,18 @@ class File extends Model {
 class Tag extends Model {
   static get tableName() {
     return "Tags";
+  }
+  static get relationMappings() {
+    return {
+      files: {
+        relation: Model.HasOneRelation,
+        modelClass: File,
+        join: {
+          from: "Tags.file_id",
+          to: "Files.id"
+        }
+      }
+    };
   }
 }
 

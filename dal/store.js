@@ -3,10 +3,9 @@ const { getLastCaseId, getLastFileId, getLastTagId } = require("./query");
 
 async function createCase(caseObject) {
   const lastId = await getLastCaseId();
-  console.log("This is the lastId variable = ", lastId.length);
   let d3;
   if (lastId.length !== 0) {
-    d3 = "c" + (lastId[0].case_id + 1);
+    d3 = "c" + (lastId[0].id + 1);
   } else {
     d3 = "c1";
   }
@@ -18,7 +17,6 @@ async function createCase(caseObject) {
       case_d3: d3
     })
     .then(response => {
-      console.log(response);
       return response;
     });
 }
@@ -26,9 +24,8 @@ async function createCase(caseObject) {
 async function createFile(fileObject) {
   const lastId = await getLastFileId();
   let d3;
-  console.log(lastId);
   if (lastId.length !== 0) {
-    d3 = "f" + (lastId[0].file_id + 1);
+    d3 = "f" + (lastId[0].id + 1);
   } else {
     d3 = "f1";
   }
@@ -41,7 +38,6 @@ async function createFile(fileObject) {
       file_text: fileObject.file_text
     })
     .then(response => {
-      console.log("this is file being saved", response);
       return response;
     });
 }
@@ -49,9 +45,8 @@ async function createFile(fileObject) {
 async function createTags(tagObjectArray, fileId, caseId) {
   const lastId = await getLastTagId();
   let startNum;
-  console.log(lastId);
   if (lastId.length !== 0) {
-    startNum = lastId[0].tag_id + 1;
+    startNum = lastId[0].id + 1;
   } else {
     startNum = 0;
   }
@@ -81,7 +76,6 @@ function createRoute(routeObject) {
         route_description: routeObject.file_description
       })
       .then(response => {
-        console.log(response);
         resolve(response);
       });
   });

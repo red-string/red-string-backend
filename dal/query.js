@@ -44,11 +44,10 @@ function getAllTagsFromCase(caseId) {
 
 function getLastCaseId() {
   return Case.query()
-    .select("case_id")
-    .orderBy("case_id", "desc")
+    .select("id")
+    .orderBy("id", "desc")
     .limit(1)
     .then(response => {
-      console.log(response == true);
       if (response) {
         return response;
       } else {
@@ -60,8 +59,8 @@ function getLastCaseId() {
 function getLastFileId() {
   return new Promise((resolve, reject) => {
     File.query()
-      .select("file_id")
-      .orderBy("file_id", "desc")
+      .select("id")
+      .orderBy("id", "desc")
       .limit(1)
       .then(response => {
         resolve(response);
@@ -72,8 +71,8 @@ function getLastFileId() {
 function getLastTagId() {
   return new Promise((resolve, reject) => {
     Tag.query()
-      .select("tag_id")
-      .orderBy("tag_id", "desc")
+      .select("id")
+      .orderBy("id", "desc")
       .limit(1)
       .then(response => {
         resolve(response);
@@ -86,7 +85,7 @@ function getLastTagId() {
 function getCaseById(caseId) {
   return new Promise((resolve, reject) => {
     Case.query()
-      .where("case_id", "=", caseId)
+      .where("id", "=", caseId)
       .then(singleCase => {
         resolve(singleCase);
       });
@@ -96,7 +95,7 @@ function getCaseById(caseId) {
 function getFileById(fileId) {
   return new Promise((resolve, reject) => {
     File.query()
-      .where("file_id", "=", fileId)
+      .where("id", "=", fileId)
       .then(file => {
         resolve(file);
       });
@@ -105,9 +104,8 @@ function getFileById(fileId) {
 
 function getTagById(tagId) {
   return Tag.query()
-    .where("tag_id", "=", tagId)
+    .where("id", "=", tagId)
     .then(tag => {
-      console.log(tag);
       return tag;
     });
 }
@@ -116,39 +114,46 @@ function getTagById(tagId) {
 // Going to have to mess around with this one once we actually get some data
 
 function getFilesThatShareTag(caseId, tagger, tagId) {
+  console.log("Case ID", caseId, "Tag", tagger, "Tag ID", tagId);
   return Tag.query()
     .select("*")
-    .from("Tags")
-    .join("Files", "Files.file_id", "Tags.file_id")
+    .join("Files", "Files.id", "Tags.file_id")
     .where("Tags.tag", tagger)
     .andWhere("Tags.case_id", caseId)
-    .groupBy("Tags.file_id")
+    .groupBy("Tags.file_id", "Tags.id", "Files.id")
     .then(response => {
       const sendRes = response.filter(res => res.tag_id !== tagId);
+      console.log("This is send response", sendRes);
       return sendRes;
     });
 }
 
-function getAllTagsThatShareFile(fileId) {
-  return Tag.query()
-    .select(
-      "Files.file_name",
-      "Files.file_d3",
-      "Files.file_description",
-      "tag_d3",
-      "tag_id",
-      "tag_frequency",
-      "Files.file_id",
-      "Files.case_id",
-      "tag"
-    )
-    .from("Files")
-    .join("Tags")
-    .where("Files.file_id", "=", fileId)
-    .andWhere("Tags.file_id", "=", fileId)
-    .then(response => {
-      return response;
-    });
+async function getAllTagsThatShareFile(fileId) {
+  return new Promise((resolve, reject) => {
+    Tag.query()
+      .where("file_id", fileId)
+      .then(tags => {
+        File.query()
+          .select("file_name", "file_d3", "file_description")
+          .where("id", fileId)
+          .then(file => {
+            const withFile = tags.map(tag => {
+              return {
+                tag: tag.tag,
+                id: tag.id,
+                tag_d3: tag.tag_d3,
+                tag_frequency: tag.tag_frequency,
+                file_name: file[0].file_name,
+                file_d3: file[0].file_d3,
+                file_description: file[0].file_description
+              };
+            });
+            console.log("With file!", withFile[0]);
+            resolve(withFile);
+          });
+      })
+      .catch();
+  });
 }
 
 // async function test() {
@@ -191,7 +196,6 @@ function getMultipleFiles(fileIdArray) {
 // =================================== Delete File (once all tags are created and file data is stored!)
 
 function deleteFile(location) {
-  console.log("DELETING ", location, "!");
   fs.unlink(location, function(err) {
     if (err) return console.log(err);
     console.log("file deleted successfully");
